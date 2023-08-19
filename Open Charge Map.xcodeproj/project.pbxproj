@@ -14,6 +14,16 @@
 		3042512C2A90EB2E0092AB95 /* Open_Charge_MapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3042512B2A90EB2E0092AB95 /* Open_Charge_MapTests.swift */; };
 		304251362A90EB2E0092AB95 /* Open_Charge_MapUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304251352A90EB2E0092AB95 /* Open_Charge_MapUITests.swift */; };
 		304251382A90EB2E0092AB95 /* Open_Charge_MapUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304251372A90EB2E0092AB95 /* Open_Charge_MapUITestsLaunchTests.swift */; };
+		3042514B2A90EEDB0092AB95 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3042514A2A90EEDB0092AB95 /* MapView.swift */; };
+		3042514D2A90EF430092AB95 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3042514C2A90EF430092AB95 /* LocationService.swift */; };
+		3042514F2A90FA230092AB95 /* LocationAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3042514E2A90FA230092AB95 /* LocationAnnotation.swift */; };
+		304251512A90FAC00092AB95 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304251502A90FAC00092AB95 /* Location.swift */; };
+		304251532A9105DA0092AB95 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304251522A9105DA0092AB95 /* APIService.swift */; };
+		304251572A911FD10092AB95 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304251562A911FD10092AB95 /* Data.swift */; };
+		304251592A9122670092AB95 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304251582A9122670092AB95 /* MapViewModel.swift */; };
+		3042515B2A9125C60092AB95 /* MapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3042515A2A9125C60092AB95 /* MapService.swift */; };
+		3042515D2A9144DE0092AB95 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3042515C2A9144DE0092AB95 /* NotificationService.swift */; };
+		304251602A914D7A0092AB95 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3042515F2A914D7A0092AB95 /* APIError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +54,17 @@
 		304251312A90EB2E0092AB95 /* Open Charge MapUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Open Charge MapUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		304251352A90EB2E0092AB95 /* Open_Charge_MapUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Open_Charge_MapUITests.swift; sourceTree = "<group>"; };
 		304251372A90EB2E0092AB95 /* Open_Charge_MapUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Open_Charge_MapUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		3042514A2A90EEDB0092AB95 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		3042514C2A90EF430092AB95 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		3042514E2A90FA230092AB95 /* LocationAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAnnotation.swift; sourceTree = "<group>"; };
+		304251502A90FAC00092AB95 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		304251522A9105DA0092AB95 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		304251562A911FD10092AB95 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		304251582A9122670092AB95 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		3042515A2A9125C60092AB95 /* MapService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapService.swift; sourceTree = "<group>"; };
+		3042515C2A9144DE0092AB95 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		3042515E2A9148880092AB95 /* Open-Charge-Map-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Open-Charge-Map-Info.plist"; sourceTree = SOURCE_ROOT; };
+		3042515F2A914D7A0092AB95 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,8 +115,11 @@
 		304251192A90EB2D0092AB95 /* Open Charge Map */ = {
 			isa = PBXGroup;
 			children = (
+				3042515E2A9148880092AB95 /* Open-Charge-Map-Info.plist */,
+				304251462A90ED490092AB95 /* Services */,
+				304251452A90ED290092AB95 /* Models */,
+				304251442A90ED250092AB95 /* Views */,
 				3042511A2A90EB2D0092AB95 /* Open_Charge_MapApp.swift */,
-				3042511C2A90EB2D0092AB95 /* ContentView.swift */,
 				3042511E2A90EB2E0092AB95 /* Assets.xcassets */,
 				304251202A90EB2E0092AB95 /* Preview Content */,
 			);
@@ -125,6 +149,46 @@
 				304251372A90EB2E0092AB95 /* Open_Charge_MapUITestsLaunchTests.swift */,
 			);
 			path = "Open Charge MapUITests";
+			sourceTree = "<group>";
+		};
+		304251442A90ED250092AB95 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				304251492A90EED00092AB95 /* Map */,
+				3042511C2A90EB2D0092AB95 /* ContentView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		304251452A90ED290092AB95 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3042514E2A90FA230092AB95 /* LocationAnnotation.swift */,
+				304251502A90FAC00092AB95 /* Location.swift */,
+				304251562A911FD10092AB95 /* Data.swift */,
+				3042515F2A914D7A0092AB95 /* APIError.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		304251462A90ED490092AB95 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				3042514C2A90EF430092AB95 /* LocationService.swift */,
+				304251522A9105DA0092AB95 /* APIService.swift */,
+				3042515A2A9125C60092AB95 /* MapService.swift */,
+				3042515C2A9144DE0092AB95 /* NotificationService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		304251492A90EED00092AB95 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				3042514A2A90EEDB0092AB95 /* MapView.swift */,
+				304251582A9122670092AB95 /* MapViewModel.swift */,
+			);
+			path = Map;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,8 +321,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3042515B2A9125C60092AB95 /* MapService.swift in Sources */,
+				3042515D2A9144DE0092AB95 /* NotificationService.swift in Sources */,
 				3042511D2A90EB2D0092AB95 /* ContentView.swift in Sources */,
+				304251532A9105DA0092AB95 /* APIService.swift in Sources */,
+				3042514B2A90EEDB0092AB95 /* MapView.swift in Sources */,
+				304251602A914D7A0092AB95 /* APIError.swift in Sources */,
+				3042514F2A90FA230092AB95 /* LocationAnnotation.swift in Sources */,
+				3042514D2A90EF430092AB95 /* LocationService.swift in Sources */,
+				304251512A90FAC00092AB95 /* Location.swift in Sources */,
 				3042511B2A90EB2D0092AB95 /* Open_Charge_MapApp.swift in Sources */,
+				304251572A911FD10092AB95 /* Data.swift in Sources */,
+				304251592A9122670092AB95 /* MapViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -420,6 +494,10 @@
 				DEVELOPMENT_TEAM = HS8PVR3BLT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Open-Charge-Map-Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.navigation";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Wir nutzen deine Position um Ladepunkte in deiner Nähe zu finden.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Wir nutzen deine Position um Ladepunkte in deiner Nähe zu finden.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -449,6 +527,10 @@
 				DEVELOPMENT_TEAM = HS8PVR3BLT;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Open-Charge-Map-Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.navigation";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Wir nutzen deine Position um Ladepunkte in deiner Nähe zu finden.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Wir nutzen deine Position um Ladepunkte in deiner Nähe zu finden.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
