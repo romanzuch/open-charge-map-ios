@@ -10,24 +10,37 @@ import MapKit
 import _MapKit_SwiftUI
 
 protocol MapVM {
+    var coordinateRegion: MKCoordinateRegion { get set }
     var showErrorMessage: Bool { get set }
     var error: APIError? { get set }
     func toggleShowErrorMessage()
-    func fetchLocations(coordinates: CLLocationCoordinate2D, coordinateRegion: MKCoordinateRegion, completion: @escaping ((Result<[Location], APIError>) -> Void))
+    func fetchLocations(completion: @escaping ((Result<[Location], APIError>) -> Void))
 }
 
 class MapViewModel: ObservableObject, MapVM {
+    @Published var coordinateRegion: MKCoordinateRegion = MKCoordinateRegion()
     @Published var showErrorMessage: Bool = false
     @Published var error: APIError? = nil
     private let locationService: LocationService = LocationService.shared
     private let apiService: APIService = APIService.shared
     private let notificationService: NotificationService = NotificationService.shared
+    
+    init() {
+        guard let coordinates = locationService.getCoordinates() else { return }
+        let mapSpan: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5)
+        self.coordinateRegion = MKCoordinateRegion(center: coordinates, span: mapSpan)
+    }
 }
 
 extension MapViewModel {
-    func fetchLocations(coordinates: CLLocationCoordinate2D, coordinateRegion: MKCoordinateRegion, completion: @escaping ((Result<[Location], APIError>) -> Void)) {
+    func fetchLocations(completion: @escaping ((Result<[Location], APIError>) -> Void)) {
         
         self.showErrorMessage = false
+        
+        guard let coordinates = locationService.getCoordinates() else {
+            completion(.failure(APIError.unknown("No coordinates provided")))
+            return
+        }
         
         debugPrint("Trying to fetch locations...")
         apiService.fetchLocations(
