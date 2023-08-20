@@ -40,7 +40,7 @@ class APIService: APIHandler {
         components.queryItems = [
             URLQueryItem(name: "output", value: self.output),
             URLQueryItem(name: "countrycode", value: self.isoCode),
-            URLQueryItem(name: "distance", value: "10"), //String(mapService.calculateDiagonalKilometers(coordinateRegion))
+            URLQueryItem(name: "distance", value: String(mapService.calculateDiagonalKilometers(coordinateRegion))), //String(mapService.calculateDiagonalKilometers(coordinateRegion))
             URLQueryItem(name: "lat", value: String(coordinates.latitude)),
             URLQueryItem(name: "lng", value: String(coordinates.longitude)),
             URLQueryItem(name: "count", value: "\(self.count)"),

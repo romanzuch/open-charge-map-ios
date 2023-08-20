@@ -10,42 +10,24 @@ import MapKit
 import _MapKit_SwiftUI
 
 protocol MapVM {
-    var locations: [Location] { get set }
-    var coordinateRegion: MKCoordinateRegion { get set }
-    var userTrackingMode: MapUserTrackingMode { get set }
-    func changeUserTrackingMode(to mode: MapUserTrackingMode)
     var showErrorMessage: Bool { get set }
     var error: APIError? { get set }
     func toggleShowErrorMessage()
-    func fetchLocations(completion: @escaping ((Result<[Location], APIError>) -> Void))
+    func fetchLocations(coordinates: CLLocationCoordinate2D, coordinateRegion: MKCoordinateRegion, completion: @escaping ((Result<[Location], APIError>) -> Void))
 }
 
 class MapViewModel: ObservableObject, MapVM {
-    @Published var locations: [Location] = []
-    @Published var coordinateRegion: MKCoordinateRegion = MKCoordinateRegion()
-    @Published var userTrackingMode: MapUserTrackingMode = .follow
     @Published var showErrorMessage: Bool = false
     @Published var error: APIError? = nil
     private let locationService: LocationService = LocationService.shared
     private let apiService: APIService = APIService.shared
     private let notificationService: NotificationService = NotificationService.shared
-    
-    init() {
-        guard let coordinates = locationService.getCoordinates() else { return }
-        let mapSpan: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5)
-        self.coordinateRegion = MKCoordinateRegion(center: coordinates, span: mapSpan)
-    }
 }
 
 extension MapViewModel {
-    func fetchLocations(completion: @escaping ((Result<[Location], APIError>) -> Void)) {
+    func fetchLocations(coordinates: CLLocationCoordinate2D, coordinateRegion: MKCoordinateRegion, completion: @escaping ((Result<[Location], APIError>) -> Void)) {
         
         self.showErrorMessage = false
-        
-        guard let coordinates = locationService.getCoordinates() else {
-            completion(.failure(APIError.unknown("No coordinates provided")))
-            return
-        }
         
         debugPrint("Trying to fetch locations...")
         apiService.fetchLocations(
@@ -68,9 +50,5 @@ extension MapViewModel {
 extension MapViewModel {
     func toggleShowErrorMessage() {
         self.showErrorMessage.toggle()
-    }
-    
-    func changeUserTrackingMode(to mode: MapUserTrackingMode) {
-        self.userTrackingMode = mode
     }
 }
