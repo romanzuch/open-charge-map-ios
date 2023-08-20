@@ -8,56 +8,83 @@
 import SwiftUI
 import MapKit
 
-struct MapView: View {
+struct MapView: UIViewRepresentable {
     
-    @State private var coordinateRegion: MKCoordinateRegion = MKCoordinateRegion()
-    @State private var userTrackingMode: MapUserTrackingMode = MapUserTrackingMode.follow
-    @StateObject private var vm: MapViewModel = MapViewModel()
-    private let mapService: MapService = MapService.shared
+    private let locationService: LocationService = LocationService.shared
+    private var mapView: MKMapView = MKMapView()
+    @StateObject private var viewModel: MapViewModel = MapViewModel()
     
-    var body: some View {
-        Map(
-            coordinateRegion: $coordinateRegion,
-            interactionModes: .all,
-            showsUserLocation: true,
-            userTrackingMode: $userTrackingMode,
-            annotationItems: vm.locations,
-            annotationContent: { location in
-                MapMarker(
-                    coordinate: mapService.getCoordinatesFromAddress(address: location.properties.address),
-                    tint: mapService.getTintFromStatus(location.properties.status)
-                )
-            }
-        )
-        .edgesIgnoringSafeArea(.top)
-        .alert(
-            isPresented: $vm.showErrorMessage,
-            error: vm.error,
-            actions: { error in
-                Button("OK", role: .cancel) {
-                    vm.toggleShowErrorMessage()
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self, with: self._viewModel)
+    }
+    
+    func makeUIView(context: Context) -> MKMapView {
+        
+        let coordinates: CLLocationCoordinate2D = locationService.getCoordinates() ?? CLLocationCoordinate2D(latitude: 52.520008, longitude: 13.404954)
+        let coordinateSpan: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+        let region: MKCoordinateRegion = MKCoordinateRegion(center: coordinates, span: coordinateSpan)
+        
+        mapView.delegate = context.coordinator
+        mapView.region = region
+        
+        mapView.showsScale = true
+        mapView.setUserTrackingMode(.follow, animated: true)
+        mapView.userTrackingMode = .follow
+        
+        mapView.showsUserLocation = true
+        
+        return mapView
+    }
+    
+    func updateUIView(_ uiView: MKMapView, context: Context) {
+        // do something
+    }
+    
+    class Coordinator: NSObject, MKMapViewDelegate {
+    
+        var parent: MapView
+        @StateObject var viewModel: MapViewModel
+        
+        init(_ parent: MapView, with viewModel: StateObject<MapViewModel>) {
+            self.parent = parent
+            self._viewModel = viewModel
+        }
+        
+        func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
+            // do something
+        }
+        
+        func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
+            // do something
+            debugPrint(userLocation.coordinate)
+        }
+        
+        func mapViewWillStartLoadingMap(_ mapView: MKMapView) {
+            // do something
+        }
+        
+        func mapViewWillStartLocatingUser(_ mapView: MKMapView) {
+            // do something
+        }
+        
+        func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
+            viewModel.fetchLocations() { result in
+                switch result {
+                case .success(let locations):
+                    let locationAnnotations: [LocationAnnotation] = locations.map { location in
+                        return LocationAnnotation(for: location, locationDescription: nil)
+                    }
+                    mapView.addAnnotations(locationAnnotations)
+                case .failure(let err):
+                    debugPrint("🔴 >>> Error occured: \(err)")
                 }
-                Button("Nochmal") {
-                    vm.fetchLocations()
-                }
-            },
-            message: { error in
-                Text(error.recoverySuggestion ?? "An unknown error occurred")
-                    .font(.headline)
-                    .multilineTextAlignment(.center)
-                    .padding()
-            }
-        )
-        .onAppear {
-            if (vm.locations.isEmpty) {
-                vm.fetchLocations()
             }
         }
+        
+        func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+            return nil
+        }
+        
     }
-}
 
-struct MapView_Previews: PreviewProvider {
-    static var previews: some View {
-        MapView()
-    }
 }
