@@ -17,7 +17,7 @@ protocol MapVM {
     var showErrorMessage: Bool { get set }
     var error: APIError? { get set }
     func toggleShowErrorMessage()
-    func fetchLocations()
+    func fetchLocations(completion: @escaping ((Result<[Location], APIError>) -> Void))
 }
 
 class MapViewModel: ObservableObject, MapVM {
@@ -38,11 +38,15 @@ class MapViewModel: ObservableObject, MapVM {
 }
 
 extension MapViewModel {
-    func fetchLocations() {
+    func fetchLocations(completion: @escaping ((Result<[Location], APIError>) -> Void)) {
+        
         self.showErrorMessage = false
+        
         guard let coordinates = locationService.getCoordinates() else {
+            completion(.failure(APIError.unknown("No coordinates provided")))
             return
         }
+        
         debugPrint("Trying to fetch locations...")
         apiService.fetchLocations(
             coordinates: coordinates,
@@ -50,13 +54,12 @@ extension MapViewModel {
         ) { result in
             switch result {
             case .success(let locations):
-                DispatchQueue.main.async {
-                    self.locations = locations
-                }
+                completion(.success(locations))
             case .failure(let error):
                 self.showErrorMessage.toggle()
                 self.error = error
                 self.notificationService.requestNotification(message: error.localizedDescription, title: "Open Charge Map", subtitle: "Fehler beim Abrufen der Stationen")
+                completion(.failure(.emptyData("No data fetched.")))
             }
         }
     }
