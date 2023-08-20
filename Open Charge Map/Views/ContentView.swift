@@ -17,6 +17,7 @@ struct ContentView: View {
                 }
                 .tag(0)
             MapView()
+                .edgesIgnoringSafeArea(.top)
                 .tabItem {
                     Label("Map", systemImage: "map")
                 }
