@@ -44,6 +44,22 @@ struct MapView: UIViewRepresentable {
         config.showsTraffic = true
         mapView.preferredConfiguration = config
         
+        viewModel.fetchLocations() { result in
+            switch result {
+            case .success(let locations):
+                debugPrint(locations.count)
+                let locationAnnotations: [LocationAnnotation] = locations.map { location in
+                    let annotation = LocationAnnotation(for: location, locationDescription: nil)
+                    debugPrint("Creating annotation >>> \(annotation)")
+                    return annotation
+                }
+                debugPrint("Adding the initial set of annotations... \(locationAnnotations)")
+                mapView.addAnnotations(locationAnnotations)
+            case .failure(let err):
+                debugPrint("🔴 >>> Error occured: \(err)")
+            }
+        }
+        
         return mapView
     }
     
@@ -54,12 +70,12 @@ struct MapView: UIViewRepresentable {
     class Coordinator: NSObject, MKMapViewDelegate {
     
         var parent: MapView
-        private var lastLocation: MKUserLocation?
+        private var lastRegion: MKCoordinateRegion?
         @StateObject var viewModel: MapViewModel
         
         init(_ parent: MapView, with viewModel: StateObject<MapViewModel>) {
             self.parent = parent
-            self.lastLocation = parent.mapView.userLocation
+            self.lastRegion = parent.mapView.region
             self._viewModel = viewModel
         }
         
@@ -72,6 +88,20 @@ struct MapView: UIViewRepresentable {
                 let coordinateSpan = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
                 let newRegion = MKCoordinateRegion(center: newLocation, span: coordinateSpan)
                 mapView.setRegion(newRegion, animated: true)
+//                if newRegion.isMoreThan50PercentOutside(of: lastRegion ?? MKCoordinateRegion()) {
+//                    viewModel.fetchLocations(coordinates: userLocation.coordinate, coordinateRegion: newRegion) { result in
+//                        switch result {
+//                        case .success(let locations):
+//                            let locationAnnotations: [LocationAnnotation] = locations.map { location in
+//                                return LocationAnnotation(for: location, locationDescription: nil)
+//                            }
+//                            debugPrint("Adding annotations.")
+//                            mapView.addAnnotations(locationAnnotations)
+//                        case .failure(let err):
+//                            debugPrint("🔴 >>> Error occured: \(err)")
+//                        }
+//                    }
+//                }
             }
         }
         
@@ -84,17 +114,8 @@ struct MapView: UIViewRepresentable {
         }
         
         func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
-            viewModel.fetchLocations(coordinates: mapView.userLocation.coordinate, coordinateRegion: mapView.region) { result in
-                switch result {
-                case .success(let locations):
-                    let locationAnnotations: [LocationAnnotation] = locations.map { location in
-                        return LocationAnnotation(for: location, locationDescription: nil)
-                    }
-                    mapView.addAnnotations(locationAnnotations)
-                case .failure(let err):
-                    debugPrint("🔴 >>> Error occured: \(err)")
-                }
-            }
+            // do something
+            // this will be called whenever the map is re-rendered, not just the first time
         }
         
         func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
