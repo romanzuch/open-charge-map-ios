@@ -22,6 +22,10 @@ struct ContentView: View {
                     Label("Map", systemImage: "map")
                 }
                 .tag(1)
+            Text("More")
+                .tabItem {
+                    Label("More", systemImage: "ellipsis")
+                }
         }
     }
 }
