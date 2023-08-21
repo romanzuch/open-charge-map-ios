@@ -91,8 +91,8 @@ class APIService: APIHandler {
                 let decoder = JSONDecoder()
                 let data = try decoder.decode(Data.self, from: data)
                 completion(.success(data.locations))
-            } catch {
-                completion(.failure(.unknown("Unbekannter Fehler")))
+            } catch let decodingError {
+                completion(.failure(.unknown(decodingError.localizedDescription)))
             }
         }.resume()
     }
