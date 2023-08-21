@@ -68,11 +68,13 @@ struct MapView: UIViewRepresentable {
     
         var parent: MapView
         private var lastRegion: MKCoordinateRegion?
+        private let mapService: MapService = MapService.shared
+        private let locationService: LocationService = LocationService.shared
+        private let apiService: APIService = APIService.shared
         @StateObject var viewModel: MapViewModel
         
         init(_ parent: MapView, with viewModel: StateObject<MapViewModel>) {
             self.parent = parent
-            self.lastRegion = parent.mapView.region
             self._viewModel = viewModel
         }
         
@@ -86,6 +88,12 @@ struct MapView: UIViewRepresentable {
                 let newRegion = MKCoordinateRegion(center: newLocation, span: coordinateSpan)
                 mapView.setRegion(newRegion, animated: true)
             }
+        }
+        
+        func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+            // check if annotation is selected
+            // check whether the new region center is outside the last one
+            // check whether the new locations are already in the map's annotations
         }
         
         func mapViewWillStartLoadingMap(_ mapView: MKMapView) {
@@ -107,11 +115,23 @@ struct MapView: UIViewRepresentable {
                 center: annotation.coordinate,
                 span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
             )
+            if let userLocation = locationService.getCoordinates() {
+                debugPrint("Requesting route to location...")
+                mapService.getDirections(from: userLocation, to: annotation.coordinate) { result in
+                    switch result {
+                    case .success(let route):
+                        self.mapService.drawDirections(for: route, on: mapView)
+                    case .failure(let error):
+                        debugPrint(error.localizedDescription)
+                    }
+                }
+            }
             mapView.setRegion(region, animated: true)
         }
         
         func mapView(_ mapView: MKMapView, didDeselect annotation: MKAnnotation) {
             if let region = self.lastRegion {
+                mapService.removeDirections(on: mapView)
                 mapView.setRegion(region, animated: true)
             }
         }
@@ -119,6 +139,31 @@ struct MapView: UIViewRepresentable {
         func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
             guard let annotation = annotation as? LocationAnnotation else { return nil }
             return LocationAnnotationView(annotation: annotation, reuseIdentifier: LocationAnnotationView.reuseId)
+        }
+        
+        func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+            switch overlay {
+            case let overlay as MKPolyline:
+                return createPolylineRenderer(for: overlay)
+            default:
+                return MKOverlayRenderer(overlay: overlay)
+                
+            }
+        }
+        
+        private func createPolylineRenderer(for line: MKPolyline) -> MKPolylineRenderer {
+            /**
+             Some of the most common customizations for an `MKOverlayRenderer` include customizing drawing settings, such as the
+             fill color of an enclosed shape, or the stroke color for the edge of the shape.
+             */
+            let renderer = MKPolylineRenderer(polyline: line)
+            renderer.lineWidth = 2
+            renderer.lineDashPattern = [2, 4]
+            renderer.strokeColor = .systemGray
+            renderer.fillColor = .systemGray
+            renderer.alpha = 0.8
+            
+            return renderer
         }
         
     }
