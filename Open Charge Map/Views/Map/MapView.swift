@@ -11,11 +11,14 @@ import MapKit
 struct MapView: UIViewRepresentable {
     
     private let locationService: LocationService = LocationService.shared
+    private let apiService: APIService = APIService.shared
+    private let mapService: MapService = MapService.shared
     private var mapView: MKMapView = MKMapView()
     @StateObject private var viewModel: MapViewModel
     
     init(with viewModel: StateObject<MapViewModel>) {
         self._viewModel = viewModel
+        self.registerAnnotationViewClasses()
     }
     
     func makeCoordinator() -> Coordinator {
@@ -23,48 +26,42 @@ struct MapView: UIViewRepresentable {
     }
     
     func makeUIView(context: Context) -> MKMapView {
-        
         mapView.delegate = context.coordinator
-        
-        // initially setting the map region
-        let coordinates: CLLocationCoordinate2D = locationService.getCoordinates() ?? CLLocationCoordinate2D(latitude: 52.520008, longitude: 13.404954)
-        let coordinateSpan: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
-        let region: MKCoordinateRegion = MKCoordinateRegion(center: coordinates, span: coordinateSpan)
-        mapView.region = region
-        
-        // setting the map's configuration
-        mapView.showsScale = true
-        mapView.setUserTrackingMode(.followWithHeading, animated: true)
-        mapView.userTrackingMode = .followWithHeading
         mapView.showsUserLocation = true
 
-        // map standard configuration
-        let config: MKStandardMapConfiguration = MKStandardMapConfiguration(elevationStyle: .realistic)
-        config.pointOfInterestFilter = MKPointOfInterestFilter(including: [.bank, .airport, .atm, .bakery, .cafe, .carRental, .evCharger, .hospital, .hotel, .store, .restroom, .restaurant, .parking, .pharmacy, .police, .publicTransport])
-        config.showsTraffic = true
-        mapView.preferredConfiguration = config
-        
-        viewModel.fetchLocations() { result in
-            switch result {
-            case .success(let locations):
-                debugPrint(locations.count)
-                let locationAnnotations: [LocationAnnotation] = locations.map { location in
-                    let annotation = LocationAnnotation(for: location, locationDescription: nil)
-                    debugPrint("Creating annotation >>> \(annotation)")
-                    return annotation
-                }
-                debugPrint("Adding the initial set of annotations... \(locationAnnotations)")
-                mapView.addAnnotations(locationAnnotations)
-            case .failure(let err):
-                debugPrint("🔴 >>> Error occured: \(err)")
-            }
-        }
-        
         return mapView
     }
     
     func updateUIView(_ uiView: MKMapView, context: Context) {
-        // do something
+        // This method is called when the view updates
+        // You can use this method to handle updates to the map view, if needed
+        if uiView.annotations.isEmpty {
+            // Setting up the map's configuration and annotations
+            let coordinates: CLLocationCoordinate2D = locationService.getCoordinates() ?? CLLocationCoordinate2D(latitude: 52.520008, longitude: 13.404954)
+            let coordinateSpan: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+            let region: MKCoordinateRegion = MKCoordinateRegion(center: coordinates, span: coordinateSpan)
+            uiView.region = region
+
+            let config: MKStandardMapConfiguration = MKStandardMapConfiguration(elevationStyle: .realistic)
+            config.pointOfInterestFilter = mapService.getPOIFilter()
+            config.showsTraffic = true
+            uiView.preferredConfiguration = config
+
+            apiService.fetchLocations(coordinates: coordinates, coordinateRegion: region) { result in
+                switch result {
+                case .success(let locations):
+                    let locationAnnotations = mapService.getLocationAnnotations(for: locations)
+                    uiView.addAnnotations(locationAnnotations)
+                case .failure(let err):
+                    debugPrint("🔴 >>> Error occurred: \(err)")
+                }
+            }
+        }
+    }
+    
+    private func registerAnnotationViewClasses() {
+        mapView.register(LocationAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
+//        mapView.register(LocationClusterAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultClusterAnnotationViewReuseIdentifier)
     }
     
     class Coordinator: NSObject, MKMapViewDelegate {
@@ -88,20 +85,6 @@ struct MapView: UIViewRepresentable {
                 let coordinateSpan = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
                 let newRegion = MKCoordinateRegion(center: newLocation, span: coordinateSpan)
                 mapView.setRegion(newRegion, animated: true)
-//                if newRegion.isMoreThan50PercentOutside(of: lastRegion ?? MKCoordinateRegion()) {
-//                    viewModel.fetchLocations(coordinates: userLocation.coordinate, coordinateRegion: newRegion) { result in
-//                        switch result {
-//                        case .success(let locations):
-//                            let locationAnnotations: [LocationAnnotation] = locations.map { location in
-//                                return LocationAnnotation(for: location, locationDescription: nil)
-//                            }
-//                            debugPrint("Adding annotations.")
-//                            mapView.addAnnotations(locationAnnotations)
-//                        case .failure(let err):
-//                            debugPrint("🔴 >>> Error occured: \(err)")
-//                        }
-//                    }
-//                }
             }
         }
         
@@ -118,8 +101,24 @@ struct MapView: UIViewRepresentable {
             // this will be called whenever the map is re-rendered, not just the first time
         }
         
+        func mapView(_ mapView: MKMapView, didSelect annotation: MKAnnotation) {
+            self.lastRegion = mapView.region
+            let region: MKCoordinateRegion = MKCoordinateRegion(
+                center: annotation.coordinate,
+                span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+            )
+            mapView.setRegion(region, animated: true)
+        }
+        
+        func mapView(_ mapView: MKMapView, didDeselect annotation: MKAnnotation) {
+            if let region = self.lastRegion {
+                mapView.setRegion(region, animated: true)
+            }
+        }
+        
         func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-            return nil
+            guard let annotation = annotation as? LocationAnnotation else { return nil }
+            return LocationAnnotationView(annotation: annotation, reuseIdentifier: LocationAnnotationView.reuseId)
         }
         
     }
