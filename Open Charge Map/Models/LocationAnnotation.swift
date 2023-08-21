@@ -11,9 +11,10 @@ import SwiftUI
 
 class LocationAnnotation: NSObject, MKAnnotation {
     var coordinate: CLLocationCoordinate2D
-    var locationName: String?
-    var locationDescription: String?
-    var locationColor: Color?
+    var title: String?
+    var subtitle: String?
+    var tint: UIColor?
+    var properties: LocationProperties?
 
     init(for location: Location, locationDescription: String?) {
 
@@ -21,8 +22,9 @@ class LocationAnnotation: NSObject, MKAnnotation {
             latitude: CLLocationDegrees(location.properties.address.lat),
             longitude: CLLocationDegrees(location.properties.address.lng)
         )
-        self.locationName = location.properties.address.title
-        self.locationDescription = locationDescription != nil ? locationDescription: location.properties.locationOperator.title
-        self.locationColor = location.properties.status.operational == true ? .green : .red
+        self.title = location.properties.address.title
+        self.subtitle = locationDescription != nil ? locationDescription: location.properties.locationOperator.title
+        self.tint = MapService.shared.getTintFromStatus(location.properties.status)
+        self.properties = location.properties
     }
 }
