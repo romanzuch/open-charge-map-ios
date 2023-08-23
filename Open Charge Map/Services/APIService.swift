@@ -40,7 +40,7 @@ class APIService: APIHandler {
         components.queryItems = [
             URLQueryItem(name: "output", value: self.output),
             URLQueryItem(name: "countrycode", value: self.isoCode),
-            URLQueryItem(name: "distance", value: "10"), //String(mapService.calculateDiagonalKilometers(coordinateRegion))
+            URLQueryItem(name: "distance", value: String(mapService.calculateDiagonalKilometers(coordinateRegion))), //String(mapService.calculateDiagonalKilometers(coordinateRegion))
             URLQueryItem(name: "lat", value: String(coordinates.latitude)),
             URLQueryItem(name: "lng", value: String(coordinates.longitude)),
             URLQueryItem(name: "count", value: "\(self.count)"),
@@ -91,8 +91,8 @@ class APIService: APIHandler {
                 let decoder = JSONDecoder()
                 let data = try decoder.decode(Data.self, from: data)
                 completion(.success(data.locations))
-            } catch {
-                completion(.failure(.unknown("Unbekannter Fehler")))
+            } catch let decodingError {
+                completion(.failure(.unknown(decodingError.localizedDescription)))
             }
         }.resume()
     }

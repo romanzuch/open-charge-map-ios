@@ -16,11 +16,16 @@ struct ContentView: View {
                     Label("Home", systemImage: "house")
                 }
                 .tag(0)
-            MapView()
+            MapView(with: StateObject(wrappedValue: MapViewModel()))
+                .edgesIgnoringSafeArea(.top)
                 .tabItem {
                     Label("Map", systemImage: "map")
                 }
                 .tag(1)
+            Text("More")
+                .tabItem {
+                    Label("More", systemImage: "ellipsis")
+                }
         }
     }
 }

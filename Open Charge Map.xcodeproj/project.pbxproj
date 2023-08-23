@@ -24,6 +24,10 @@
 		3042515B2A9125C60092AB95 /* MapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3042515A2A9125C60092AB95 /* MapService.swift */; };
 		3042515D2A9144DE0092AB95 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3042515C2A9144DE0092AB95 /* NotificationService.swift */; };
 		304251602A914D7A0092AB95 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3042515F2A914D7A0092AB95 /* APIError.swift */; };
+		309996252A928D8900469FF3 /* MKCoordinateRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309996242A928D8900469FF3 /* MKCoordinateRegion.swift */; };
+		309996272A93801B00469FF3 /* LocationAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309996262A93801B00469FF3 /* LocationAnnotationView.swift */; };
+		309996292A9380D600469FF3 /* LocationClusterAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309996282A9380D600469FF3 /* LocationClusterAnnotationView.swift */; };
+		30DFD7082A93B7E000FB157C /* MapError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DFD7072A93B7E000FB157C /* MapError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +69,10 @@
 		3042515C2A9144DE0092AB95 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		3042515E2A9148880092AB95 /* Open-Charge-Map-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Open-Charge-Map-Info.plist"; sourceTree = SOURCE_ROOT; };
 		3042515F2A914D7A0092AB95 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
+		309996242A928D8900469FF3 /* MKCoordinateRegion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKCoordinateRegion.swift; sourceTree = "<group>"; };
+		309996262A93801B00469FF3 /* LocationAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAnnotationView.swift; sourceTree = "<group>"; };
+		309996282A9380D600469FF3 /* LocationClusterAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationClusterAnnotationView.swift; sourceTree = "<group>"; };
+		30DFD7072A93B7E000FB157C /* MapError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				3042515E2A9148880092AB95 /* Open-Charge-Map-Info.plist */,
+				309996232A928D7D00469FF3 /* Extensions */,
 				304251462A90ED490092AB95 /* Services */,
 				304251452A90ED290092AB95 /* Models */,
 				304251442A90ED250092AB95 /* Views */,
@@ -163,10 +172,13 @@
 		304251452A90ED290092AB95 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				3042514E2A90FA230092AB95 /* LocationAnnotation.swift */,
 				304251502A90FAC00092AB95 /* Location.swift */,
+				3042514E2A90FA230092AB95 /* LocationAnnotation.swift */,
+				309996262A93801B00469FF3 /* LocationAnnotationView.swift */,
+				309996282A9380D600469FF3 /* LocationClusterAnnotationView.swift */,
 				304251562A911FD10092AB95 /* Data.swift */,
 				3042515F2A914D7A0092AB95 /* APIError.swift */,
+				30DFD7072A93B7E000FB157C /* MapError.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -189,6 +201,14 @@
 				304251582A9122670092AB95 /* MapViewModel.swift */,
 			);
 			path = Map;
+			sourceTree = "<group>";
+		};
+		309996232A928D7D00469FF3 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				309996242A928D8900469FF3 /* MKCoordinateRegion.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -322,7 +342,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				3042515B2A9125C60092AB95 /* MapService.swift in Sources */,
+				30DFD7082A93B7E000FB157C /* MapError.swift in Sources */,
 				3042515D2A9144DE0092AB95 /* NotificationService.swift in Sources */,
+				309996292A9380D600469FF3 /* LocationClusterAnnotationView.swift in Sources */,
+				309996252A928D8900469FF3 /* MKCoordinateRegion.swift in Sources */,
 				3042511D2A90EB2D0092AB95 /* ContentView.swift in Sources */,
 				304251532A9105DA0092AB95 /* APIService.swift in Sources */,
 				3042514B2A90EEDB0092AB95 /* MapView.swift in Sources */,
@@ -330,6 +353,7 @@
 				3042514F2A90FA230092AB95 /* LocationAnnotation.swift in Sources */,
 				3042514D2A90EF430092AB95 /* LocationService.swift in Sources */,
 				304251512A90FAC00092AB95 /* Location.swift in Sources */,
+				309996272A93801B00469FF3 /* LocationAnnotationView.swift in Sources */,
 				3042511B2A90EB2D0092AB95 /* Open_Charge_MapApp.swift in Sources */,
 				304251572A911FD10092AB95 /* Data.swift in Sources */,
 				304251592A9122670092AB95 /* MapViewModel.swift in Sources */,

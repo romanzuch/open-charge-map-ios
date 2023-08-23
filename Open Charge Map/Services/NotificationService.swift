@@ -24,7 +24,6 @@ class NotificationService: NotificationServices {
     }
     
     func requestNotification(message: String, title: String, subtitle: String) {
-        debugPrint("Requesting notification")
         let content = UNMutableNotificationContent()
         content.title = title
         content.subtitle = subtitle
