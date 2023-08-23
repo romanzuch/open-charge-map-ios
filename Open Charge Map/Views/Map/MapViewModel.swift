@@ -43,10 +43,7 @@ extension MapViewModel {
         }
         
         debugPrint("Trying to fetch locations...")
-        apiService.fetchLocations(
-            coordinates: coordinates,
-            coordinateRegion: coordinateRegion
-        ) { result in
+        apiService.fetchLocations(for: coordinateRegion) { result in
             switch result {
             case .success(let locations):
                 completion(.success(locations))
