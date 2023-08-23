@@ -14,15 +14,19 @@ struct MapView: UIViewRepresentable {
     private let apiService: APIService = APIService.shared
     private let mapService: MapService = MapService.shared
     private var mapView: MKMapView = MKMapView()
-    @StateObject private var viewModel: MapViewModel
+    private var mapType: MapType = .active
     
-    init(with viewModel: StateObject<MapViewModel>) {
-        self._viewModel = viewModel
+    init(type mapType: MapType) {
+        self.mapType = mapType
+        self.registerAnnotationViewClasses()
+    }
+    
+    init() {
         self.registerAnnotationViewClasses()
     }
     
     func makeCoordinator() -> Coordinator {
-        Coordinator(self, with: self._viewModel)
+        Coordinator(self)
     }
     
     func makeUIView(context: Context) -> MKMapView {
@@ -35,7 +39,11 @@ struct MapView: UIViewRepresentable {
     
     func updateUIView(_ uiView: MKMapView, context: Context) {
         // add the user tracking button
-        self.setupUserButtons(uiView)
+        if self.mapType == .active {
+            self.setupUserButtons(uiView)
+        } else {
+            mapService.disableUserInteraction(for: uiView)
+        }
         // This method is called when the view updates
         // You can use this method to handle updates to the map view, if needed
         if uiView.annotations.isEmpty {
@@ -93,12 +101,10 @@ struct MapView: UIViewRepresentable {
         private let mapService: MapService = MapService.shared
         private let locationService: LocationService = LocationService.shared
         private let apiService: APIService = APIService.shared
-        @StateObject var viewModel: MapViewModel
         private var loadedRegions: [MKCoordinateRegion] = [MKCoordinateRegion]()
         
-        init(_ parent: MapView, with viewModel: StateObject<MapViewModel>) {
+        init(_ parent: MapView) {
             self.parent = parent
-            self._viewModel = viewModel
         }
         
         func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
