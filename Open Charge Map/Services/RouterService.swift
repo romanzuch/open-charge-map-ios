@@ -6,3 +6,13 @@
 //
 
 import Foundation
+
+class RouterService: ObservableObject {
+    @Published var currentTab: Tab = .Home
+}
+
+extension RouterService {
+    func switchTab(to newTab: Tab) {
+        self.currentTab = newTab
+    }
+}
