@@ -28,11 +28,14 @@ struct MapView: UIViewRepresentable {
     func makeUIView(context: Context) -> MKMapView {
         mapView.delegate = context.coordinator
         mapView.showsUserLocation = true
+        mapView.showsCompass = false
 
         return mapView
     }
     
     func updateUIView(_ uiView: MKMapView, context: Context) {
+        // add the user tracking button
+        self.setupUserButtons(uiView)
         // This method is called when the view updates
         // You can use this method to handle updates to the map view, if needed
         if uiView.annotations.isEmpty {
@@ -57,6 +60,25 @@ struct MapView: UIViewRepresentable {
                 }
             }
         }
+    }
+    
+    private func setupUserButtons(_ mapView: MKMapView) {
+        let userTrackingButton: MKUserTrackingButton = MKUserTrackingButton(mapView: mapView)
+        userTrackingButton.translatesAutoresizingMaskIntoConstraints = false
+        userTrackingButton.layer.backgroundColor = UIColor.systemBackground.cgColor
+        userTrackingButton.layer.cornerRadius = 5
+        mapView.addSubview(userTrackingButton)
+        
+        let compassButton: MKCompassButton = MKCompassButton(mapView: mapView)
+        compassButton.translatesAutoresizingMaskIntoConstraints = false
+        mapView.addSubview(compassButton)
+        
+        NSLayoutConstraint.activate([
+            userTrackingButton.rightAnchor.constraint(equalTo: mapView.rightAnchor, constant: -16),
+            userTrackingButton.topAnchor.constraint(equalTo: mapView.bottomAnchor, constant: -80),
+            compassButton.centerXAnchor.constraint(equalTo: userTrackingButton.centerXAnchor, constant: 0),
+            compassButton.bottomAnchor.constraint(equalTo: userTrackingButton.topAnchor, constant: -12)
+        ])
     }
     
     private func registerAnnotationViewClasses() {
