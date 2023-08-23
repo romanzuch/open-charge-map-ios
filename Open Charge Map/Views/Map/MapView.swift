@@ -51,7 +51,7 @@ struct MapView: UIViewRepresentable {
                 switch result {
                 case .success(let locations):
                     let locationAnnotations = mapService.getLocationAnnotations(for: locations)
-                    uiView.addAnnotations(locationAnnotations)
+                    mapService.addLocationAnnotations(for: locationAnnotations, to: uiView)
                 case .failure(let err):
                     debugPrint("🔴 >>> Error occurred: \(err)")
                 }
@@ -72,6 +72,7 @@ struct MapView: UIViewRepresentable {
         private let locationService: LocationService = LocationService.shared
         private let apiService: APIService = APIService.shared
         @StateObject var viewModel: MapViewModel
+        private var loadedRegions: [MKCoordinateRegion] = [MKCoordinateRegion]()
         
         init(_ parent: MapView, with viewModel: StateObject<MapViewModel>) {
             self.parent = parent
@@ -92,10 +93,26 @@ struct MapView: UIViewRepresentable {
         
         func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
             // check if annotation is selected
-            if !mapView.selectedAnnotations.isEmpty {
-                
+            // if annotation is selected, the user interaction is disabled
+            if mapView.selectedAnnotations.isEmpty {
+                // check whether the new region center is outside the last one
+                if !loadedRegions.contains(where: { region in
+                    region.contains(mapView.region)
+                }) {
+                    apiService.fetchLocations(coordinates: mapView.centerCoordinate, coordinateRegion: mapView.region) { result in
+                        switch result {
+                        case .success(let locations):
+                            let locationAnnotations = self.mapService.getLocationAnnotations(for: locations)
+                            self.mapService.addLocationAnnotations(for: locationAnnotations, to: mapView)
+                            self.loadedRegions.append(mapView.region)
+                        case .failure(let err):
+                            debugPrint("🔴 >>> Error occurred: \(err)")
+                        }
+                    }
+                } else {
+                    debugPrint("Region already loaded....")
+                }
             }
-            // check whether the new region center is outside the last one
             // check whether the new locations are already in the map's annotations
         }
         
@@ -109,7 +126,6 @@ struct MapView: UIViewRepresentable {
         
         func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
             // do something
-            // this will be called whenever the map is re-rendered, not just the first time
         }
         
         func mapView(_ mapView: MKMapView, didSelect annotation: MKAnnotation) {
