@@ -8,24 +8,33 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var selectedTab: Int = 0
+    @StateObject private var router: RouterService = RouterService()
     var body: some View {
-        TabView(selection: $selectedTab) {
-            Text("Home")
-                .tabItem {
-                    Label("Home", systemImage: "house")
-                }
-                .tag(0)
-            MapView(with: StateObject(wrappedValue: MapViewModel()))
-                .edgesIgnoringSafeArea(.top)
-                .tabItem {
-                    Label("Map", systemImage: "map")
-                }
-                .tag(1)
-            Text("More")
-                .tabItem {
-                    Label("More", systemImage: "ellipsis")
-                }
+        NavigationStack {
+            TabView(selection: $router.currentTab) {
+                
+                HomeView()
+                    .tabItem {
+                        Label("Home", systemImage: "house")
+                    }
+                    .tag(Tab.Home)
+                    .environmentObject(router)
+                
+                MapView()
+                    .edgesIgnoringSafeArea(.top)
+                    .tabItem {
+                        Label("Map", systemImage: "map")
+                    }
+                    .tag(Tab.Map)
+                
+                Text("More")
+                    .tabItem {
+                        Label("More", systemImage: "ellipsis")
+                    }
+                    .tag(Tab.More)
+                
+            }
+            .navigationTitle(router.currentTab.title)
         }
     }
 }
