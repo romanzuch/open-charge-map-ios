@@ -111,4 +111,14 @@ class MapService: MapServices {
         map.isScrollEnabled.toggle()
     }
     
+    func addLocationAnnotations(for annotations: [LocationAnnotation], to map: MKMapView) {
+        for annotation in annotations {
+            if !map.annotations.contains(where: { mapAnnotation in
+                return mapAnnotation.coordinate.latitude == annotation.coordinate.latitude &&
+                mapAnnotation.title == annotation.title
+            }) {
+                map.addAnnotation(annotation)
+            }
+        }
+    }
 }
