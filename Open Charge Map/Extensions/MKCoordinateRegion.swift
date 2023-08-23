@@ -25,6 +25,9 @@ extension MKCoordinateRegion {
     }
 
     func contains(_ other: MKCoordinateRegion) -> Bool {
-        maxLongitude >= other.maxLongitude && minLongitude <= other.minLongitude && maxLatitude >= other.maxLatitude && minLatitude <= other.minLatitude
+        other.center.latitude <= self.maxLongitude &&
+        other.center.latitude >= self.minLongitude &&
+        other.center.longitude <= self.maxLatitude &&
+        other.center.longitude >= self.minLatitude 
     }
 }
