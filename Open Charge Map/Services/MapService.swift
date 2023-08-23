@@ -104,4 +104,11 @@ class MapService: MapServices {
         }
     }
     
+    func toggleUserInteraction(for map: MKMapView) {
+        map.isZoomEnabled.toggle()
+        map.isPitchEnabled.toggle()
+        map.isRotateEnabled.toggle()
+        map.isScrollEnabled.toggle()
+    }
+    
 }

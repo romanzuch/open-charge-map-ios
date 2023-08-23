@@ -92,6 +92,9 @@ struct MapView: UIViewRepresentable {
         
         func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
             // check if annotation is selected
+            if !mapView.selectedAnnotations.isEmpty {
+                
+            }
             // check whether the new region center is outside the last one
             // check whether the new locations are already in the map's annotations
         }
@@ -111,6 +114,7 @@ struct MapView: UIViewRepresentable {
         
         func mapView(_ mapView: MKMapView, didSelect annotation: MKAnnotation) {
             self.lastRegion = mapView.region
+            mapService.toggleUserInteraction(for: mapView)
             let region: MKCoordinateRegion = MKCoordinateRegion(
                 center: annotation.coordinate,
                 span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
@@ -131,9 +135,10 @@ struct MapView: UIViewRepresentable {
         
         func mapView(_ mapView: MKMapView, didDeselect annotation: MKAnnotation) {
             if let region = self.lastRegion {
-                mapService.removeDirections(on: mapView)
                 mapView.setRegion(region, animated: true)
             }
+            mapService.removeDirections(on: mapView)
+            mapService.toggleUserInteraction(for: mapView)
         }
         
         func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
