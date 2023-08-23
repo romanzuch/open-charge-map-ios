@@ -123,6 +123,13 @@ class MapService: MapServices {
         map.isScrollEnabled.toggle()
     }
     
+    func disableUserInteraction(for map: MKMapView) {
+        map.isZoomEnabled = false
+        map.isPitchEnabled = false
+        map.isRotateEnabled = false
+        map.isScrollEnabled = false
+    }
+    
     func addLocationAnnotations(for annotations: [LocationAnnotation], to map: MKMapView) {
         for annotation in annotations {
             if !map.annotations.contains(where: { mapAnnotation in
