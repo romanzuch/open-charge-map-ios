@@ -26,10 +26,22 @@ class MapService: MapServices {
     static let shared: MapService = MapService()
     
     func calculateDiagonalKilometers(_ coordinateRegion: MKCoordinateRegion) -> String {
-        let latDelta: Double = MKMetersPerMapPointAtLatitude(coordinateRegion.span.latitudeDelta)
-        let lngDelta: Double = MKMetersPerMapPointAtLatitude(coordinateRegion.span.longitudeDelta)
-        let distance: Double = sqrt(latDelta * latDelta + lngDelta * lngDelta)
-        let distanceString: String = String(format: "%.2f", distance).replacingOccurrences(of: ".", with: ",")
+        let latDeltaInMeters: Double = CLLocation(
+            latitude: coordinateRegion.maxLatitude,
+            longitude: coordinateRegion.minLongitude)
+            .distance(from: CLLocation(
+                latitude: coordinateRegion.maxLatitude,
+                longitude: coordinateRegion.maxLongitude
+            ))
+        let lngDeltaInMeters: Double = CLLocation(
+            latitude: coordinateRegion.minLatitude,
+            longitude: coordinateRegion.minLongitude)
+            .distance(from: CLLocation(
+                latitude: coordinateRegion.minLatitude,
+                longitude: coordinateRegion.maxLongitude
+            ))
+        let distanceInKilometers: Double = sqrt(latDeltaInMeters * latDeltaInMeters + lngDeltaInMeters * lngDeltaInMeters)/1000
+        let distanceString: String = String(format: "%.2f", distanceInKilometers).replacingOccurrences(of: ".", with: ",")
         return distanceString
     }
     

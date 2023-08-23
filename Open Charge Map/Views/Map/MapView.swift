@@ -50,7 +50,7 @@ struct MapView: UIViewRepresentable {
             config.showsTraffic = true
             uiView.preferredConfiguration = config
 
-            apiService.fetchLocations(coordinates: coordinates, coordinateRegion: region) { result in
+            apiService.fetchLocations(for: uiView.region) { result in
                 switch result {
                 case .success(let locations):
                     let locationAnnotations = mapService.getLocationAnnotations(for: locations)
@@ -121,7 +121,7 @@ struct MapView: UIViewRepresentable {
                 if !loadedRegions.contains(where: { region in
                     region.contains(mapView.region)
                 }) {
-                    apiService.fetchLocations(coordinates: mapView.centerCoordinate, coordinateRegion: mapView.region) { result in
+                    apiService.fetchLocations(for: mapView.region) { result in
                         switch result {
                         case .success(let locations):
                             let locationAnnotations = self.mapService.getLocationAnnotations(for: locations)

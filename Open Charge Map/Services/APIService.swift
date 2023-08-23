@@ -17,8 +17,8 @@ protocol APIHandler {
     var isoCode: String { get set }
     var count: Int { get set }
     var distanceUnit: String { get set }
-    func buildRequest(coordinates: CLLocationCoordinate2D, coordinateRegion: MKCoordinateRegion) -> URLRequest
-    func fetchLocations(coordinates: CLLocationCoordinate2D, coordinateRegion: MKCoordinateRegion, completion: @escaping (Result<[Location], APIError>) -> Void)
+    func buildRequest(for coordinateRegion: MKCoordinateRegion) -> URLRequest
+    func fetchLocations(for coordinateRegion: MKCoordinateRegion, completion: @escaping (Result<[Location], APIError>) -> Void)
     
 }
 
@@ -33,7 +33,7 @@ class APIService: APIHandler {
     static let shared: APIService = APIService()
     private let mapService: MapService = MapService.shared
     
-    func buildRequest(coordinates: CLLocationCoordinate2D, coordinateRegion: MKCoordinateRegion) -> URLRequest {
+    func buildRequest(for coordinateRegion: MKCoordinateRegion) -> URLRequest {
         
         var components = URLComponents(string: "http://localhost:9999/locations")!
         
@@ -41,8 +41,8 @@ class APIService: APIHandler {
             URLQueryItem(name: "output", value: self.output),
             URLQueryItem(name: "countrycode", value: self.isoCode),
             URLQueryItem(name: "distance", value: String(mapService.calculateDiagonalKilometers(coordinateRegion))), //String(mapService.calculateDiagonalKilometers(coordinateRegion))
-            URLQueryItem(name: "lat", value: String(coordinates.latitude)),
-            URLQueryItem(name: "lng", value: String(coordinates.longitude)),
+            URLQueryItem(name: "lat", value: String(coordinateRegion.center.latitude)),
+            URLQueryItem(name: "lng", value: String(coordinateRegion.center.longitude)),
             URLQueryItem(name: "count", value: "\(self.count)"),
             URLQueryItem(name: "distanceUnit", value: self.distanceUnit),
         ]
@@ -52,8 +52,8 @@ class APIService: APIHandler {
         return request
     }
     
-    func fetchLocations(coordinates: CLLocationCoordinate2D, coordinateRegion: MKCoordinateRegion, completion: @escaping (Result<[Location], APIError>) -> Void) {
-        let request = self.buildRequest(coordinates: coordinates, coordinateRegion: coordinateRegion)
+    func fetchLocations(for coordinateRegion: MKCoordinateRegion, completion: @escaping (Result<[Location], APIError>) -> Void) {
+        let request = self.buildRequest(for: coordinateRegion)
         
         URLSession.shared.dataTask(with: request) { data, response, error in
             
