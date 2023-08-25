@@ -85,6 +85,13 @@ struct ChargePointConnectionType: Codable {
     }
 }
 
+extension ChargePointConnectionType: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+        hasher.combine(title)
+    }
+}
+
 struct LocationAddress: Codable {
     var id: Int
     var title: String
