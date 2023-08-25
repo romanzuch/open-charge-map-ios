@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Data: Codable {
+struct DataType: Codable {
     var locations: [Location]
     
     enum CodingKeys: String, CodingKey {
