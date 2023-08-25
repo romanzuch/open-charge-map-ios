@@ -81,6 +81,7 @@
 		3042515F2A914D7A0092AB95 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		3046AEA62A9870E9000F2119 /* HomeViewListContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewListContainer.swift; sourceTree = "<group>"; };
 		3046AEAA2A98BE94000F2119 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
+		3046AEAC2A98CD01000F2119 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		309996242A928D8900469FF3 /* MKCoordinateRegion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKCoordinateRegion.swift; sourceTree = "<group>"; };
 		309996262A93801B00469FF3 /* LocationAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAnnotationView.swift; sourceTree = "<group>"; };
 		30AC05DF2A96918000E86DE9 /* RouterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterService.swift; sourceTree = "<group>"; };
@@ -132,6 +133,7 @@
 		3042510E2A90EB2D0092AB95 = {
 			isa = PBXGroup;
 			children = (
+				3046AEAC2A98CD01000F2119 /* README.md */,
 				304251192A90EB2D0092AB95 /* Open Charge Map */,
 				3042512A2A90EB2E0092AB95 /* Open Charge MapTests */,
 				304251342A90EB2E0092AB95 /* Open Charge MapUITests */,
