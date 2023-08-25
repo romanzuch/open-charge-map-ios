@@ -74,10 +74,9 @@ struct HomeViewListContainer: View {
                     Text("In der Nähe").fontWeight(.bold)
                     HStack {
                         Spacer()
-                        Text(error.localizedDescription).font(.caption2)
+                        ErrorView(error: error)
                         Spacer()
                     }
-                    .padding(.vertical, 8)
                 }
             }
         }
