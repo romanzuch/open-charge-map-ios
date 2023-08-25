@@ -30,7 +30,11 @@ struct HomeViewListContainer: View {
             switch result {
             case .success(let locations):
                 if locations.isEmpty {
-                    Text("Es wurden keine Stationen in der Nähe gefunden.")
+                    HStack {
+                        Spacer()
+                        Text("Es wurden keine Stationen in der Nähe gefunden.").font(.caption2)
+                        Spacer()
+                    }
                 } else {
                     VStack(alignment: .leading) {
                         Text("In der Nähe").fontWeight(.bold)
@@ -66,7 +70,15 @@ struct HomeViewListContainer: View {
                     }
                 }
             case .failure(let error):
-                Text(error.localizedDescription)
+                VStack(alignment: .leading) {
+                    Text("In der Nähe").fontWeight(.bold)
+                    HStack {
+                        Spacer()
+                        Text(error.localizedDescription).font(.caption2)
+                        Spacer()
+                    }
+                    .padding(.vertical, 8)
+                }
             }
         }
     }
@@ -76,9 +88,9 @@ struct HomeViewListContainer_Previews: PreviewProvider {
     static var previews: some View {
         var locations: [Location] = []  // Populate with actual location data if needed
         let error: APIError = APIError.emptyData("")
-        let result: Binding<Result<[Location], APIError>> = Binding.constant(.failure(error))
+        let result: Binding<Result<[Location], APIError>> = Binding.constant(.failure(.unknown("Ein unbekannter Fehler ist aufgetreten")))
         GeometryReader { geo in
-            HomeViewListContainer(with: result, isLoading: .constant(true), geo: geo)
+            HomeViewListContainer(with: result, isLoading: .constant(false), geo: geo)
         }
     }
 }
