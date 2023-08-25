@@ -93,7 +93,7 @@ class APIService: APIHandler {
             
             do {
                 let decoder = JSONDecoder()
-                let data = try decoder.decode(Data.self, from: data)
+                let data = try decoder.decode(DataType.self, from: data)
                 completion(.success(data.locations))
             } catch let decodingError {
                 completion(.failure(.unknown(decodingError.localizedDescription)))

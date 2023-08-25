@@ -85,9 +85,9 @@ struct HomeViewListContainer: View {
 
 struct HomeViewListContainer_Previews: PreviewProvider {
     static var previews: some View {
-        var locations: [Location] = []  // Populate with actual location data if needed
+        let locations: [Location] = MockService.shared.getLocations() ?? [] // Populate with actual location data if needed
         let error: APIError = APIError.emptyData("")
-        let result: Binding<Result<[Location], APIError>> = Binding.constant(.failure(.unknown("Ein unbekannter Fehler ist aufgetreten")))
+        let result: Binding<Result<[Location], APIError>> = Binding.constant(.success(locations))
         GeometryReader { geo in
             HomeViewListContainer(with: result, isLoading: .constant(false), geo: geo)
         }
