@@ -91,7 +91,6 @@ struct MapView: UIViewRepresentable {
     
     private func registerAnnotationViewClasses() {
         mapView.register(LocationAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
-//        mapView.register(LocationClusterAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultClusterAnnotationViewReuseIdentifier)
     }
     
     class Coordinator: NSObject, MKMapViewDelegate {

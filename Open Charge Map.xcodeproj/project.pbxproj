@@ -30,7 +30,6 @@
 		304251602A914D7A0092AB95 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3042515F2A914D7A0092AB95 /* APIError.swift */; };
 		309996252A928D8900469FF3 /* MKCoordinateRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309996242A928D8900469FF3 /* MKCoordinateRegion.swift */; };
 		309996272A93801B00469FF3 /* LocationAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309996262A93801B00469FF3 /* LocationAnnotationView.swift */; };
-		309996292A9380D600469FF3 /* LocationClusterAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309996282A9380D600469FF3 /* LocationClusterAnnotationView.swift */; };
 		30AC05E02A96918000E86DE9 /* RouterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AC05DF2A96918000E86DE9 /* RouterService.swift */; };
 		30DFD7082A93B7E000FB157C /* MapError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DFD7072A93B7E000FB157C /* MapError.swift */; };
 /* End PBXBuildFile section */
@@ -80,7 +79,6 @@
 		3042515F2A914D7A0092AB95 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		309996242A928D8900469FF3 /* MKCoordinateRegion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKCoordinateRegion.swift; sourceTree = "<group>"; };
 		309996262A93801B00469FF3 /* LocationAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAnnotationView.swift; sourceTree = "<group>"; };
-		309996282A9380D600469FF3 /* LocationClusterAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationClusterAnnotationView.swift; sourceTree = "<group>"; };
 		30AC05DF2A96918000E86DE9 /* RouterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterService.swift; sourceTree = "<group>"; };
 		30DFD7072A93B7E000FB157C /* MapError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -203,7 +201,6 @@
 				304251502A90FAC00092AB95 /* Location.swift */,
 				3042514E2A90FA230092AB95 /* LocationAnnotation.swift */,
 				309996262A93801B00469FF3 /* LocationAnnotationView.swift */,
-				309996282A9380D600469FF3 /* LocationClusterAnnotationView.swift */,
 				304251562A911FD10092AB95 /* Data.swift */,
 				3042515F2A914D7A0092AB95 /* APIError.swift */,
 				30DFD7072A93B7E000FB157C /* MapError.swift */,
@@ -377,7 +374,6 @@
 				30DFD7082A93B7E000FB157C /* MapError.swift in Sources */,
 				3042515D2A9144DE0092AB95 /* NotificationService.swift in Sources */,
 				302418412A968A690053A7B5 /* MapType.swift in Sources */,
-				309996292A9380D600469FF3 /* LocationClusterAnnotationView.swift in Sources */,
 				309996252A928D8900469FF3 /* MKCoordinateRegion.swift in Sources */,
 				3024183B2A9687AC0053A7B5 /* HomeView.swift in Sources */,
 				3042511D2A90EB2D0092AB95 /* ContentView.swift in Sources */,
