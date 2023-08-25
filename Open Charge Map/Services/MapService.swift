@@ -140,4 +140,13 @@ class MapService: MapServices {
             }
         }
     }
+    
+    func getDistance(from location: Location) -> Float? {
+        if let userCoordinates = LocationService.shared.getCoordinates() {
+            let userLocation = CLLocation(latitude: userCoordinates.latitude, longitude: userCoordinates.longitude)
+            let locationCoordinates = CLLocation(latitude: CLLocationDegrees(location.properties.address.lat), longitude: CLLocationDegrees(location.properties.address.lng))
+            return Float(locationCoordinates.distance(from: userLocation)) / 1000 // .distance() returns a meter value
+        }
+        return nil
+    }
 }
