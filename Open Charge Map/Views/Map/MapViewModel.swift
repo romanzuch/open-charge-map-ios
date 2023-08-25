@@ -37,7 +37,7 @@ extension MapViewModel {
         
         self.showErrorMessage = false
         
-        guard let coordinates = locationService.getCoordinates() else {
+        guard let _ = locationService.getCoordinates() else {
             completion(.failure(APIError.unknown("No coordinates provided")))
             return
         }
