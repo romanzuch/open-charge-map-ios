@@ -47,6 +47,10 @@ class APIService: APIHandler {
             URLQueryItem(name: "distanceUnit", value: self.distanceUnit),
         ]
         
+        #if targetEnvironment(simulator)
+        components.queryItems?.append(URLQueryItem(name: "test", value: "true"))
+        #endif
+        
         var request = URLRequest(url: components.url!)
         request.addValue("Open Street Map Express", forHTTPHeaderField: "User-Agent")
         return request

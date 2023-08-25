@@ -123,6 +123,13 @@ class MapService: MapServices {
         map.isScrollEnabled.toggle()
     }
     
+    func disableUserInteraction(for map: MKMapView) {
+        map.isZoomEnabled = false
+        map.isPitchEnabled = false
+        map.isRotateEnabled = false
+        map.isScrollEnabled = false
+    }
+    
     func addLocationAnnotations(for annotations: [LocationAnnotation], to map: MKMapView) {
         for annotation in annotations {
             if !map.annotations.contains(where: { mapAnnotation in
@@ -132,5 +139,14 @@ class MapService: MapServices {
                 map.addAnnotation(annotation)
             }
         }
+    }
+    
+    func getDistance(from location: Location) -> Float? {
+        if let userCoordinates = LocationService.shared.getCoordinates() {
+            let userLocation = CLLocation(latitude: userCoordinates.latitude, longitude: userCoordinates.longitude)
+            let locationCoordinates = CLLocation(latitude: CLLocationDegrees(location.properties.address.lat), longitude: CLLocationDegrees(location.properties.address.lng))
+            return Float(locationCoordinates.distance(from: userLocation)) / 1000 // .distance() returns a meter value
+        }
+        return nil
     }
 }
