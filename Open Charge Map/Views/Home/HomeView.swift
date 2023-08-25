@@ -15,20 +15,28 @@ struct HomeView: View {
     var body: some View {
         GeometryReader { geo in
             ScrollView {
-                VStack {
+                VStack(alignment: .leading, spacing: 12) {
                     // Around
-                    Text("Here will be some locations around you...")
+                    HomeViewListContainer(with: $viewModel.locationProxResult, isLoading: $viewModel.loadingProxResults, geo: geo)
+                        .onAppear {
+                            viewModel.fetchLocations()
+                        }
+                        .environmentObject(router)
                     
                     // Favorites
-                    Text("Here will be your favorites...")
+                    Text("Favoriten").fontWeight(.bold)
+                    Text("hier können favoriten stehen").font(.caption2)
                     
                     // Map
+                    Text("Karte").fontWeight(.bold)
                     MapView(type: .passive)
-                        .frame(width: geo.size.width, height: geo.size.height/3, alignment: .center)
+                        .frame(width: geo.size.width - 16, height: geo.size.height/3, alignment: .center)
                         .onTapGesture {
                             router.switchTab(to: .Map)
                         }
+                        .cornerRadius(8)
                 }
+                .padding(.horizontal, 8)
             }
         }
     }
