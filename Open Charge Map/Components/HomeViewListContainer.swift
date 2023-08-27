@@ -40,7 +40,7 @@ struct HomeViewListContainer: View {
                         Text("In der Nähe").fontWeight(.bold)
                         ForEach(locations, id: \.properties.id) { location in
                             NavigationLink {
-                                Text("Details")
+                                DetailsView(for: location)
                             } label: {
                                 HStack {
                                     VStack(alignment: .leading) {
