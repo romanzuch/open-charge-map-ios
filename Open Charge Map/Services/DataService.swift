@@ -13,8 +13,19 @@ class DataService {
         let validConnections = connections.compactMap { $0.power }
         return Int(validConnections.min() ?? 0.0)
     }
+    func getMaxPower(for connections: [ChargePointConnection]) -> Float? {
+        let validConnections = connections.compactMap { $0.power }
+        return validConnections.max()
+    }
     func getConnectionTypes(for connections: [ChargePointConnection]) -> [ChargePointConnectionType] {
         let availableConnectionTypes = Set(connections.map { $0.type })
         return Array(availableConnectionTypes)
+    }
+    func getAvailableConnections(for connections: [ChargePointConnection]) -> Int {
+        let availableConnections = connections.compactMap { $0.status.operational == true }
+        let count = availableConnections.reduce(0) { (result, element) in
+            return element == true ? result + 1 : result
+        }
+        return count
     }
 }
