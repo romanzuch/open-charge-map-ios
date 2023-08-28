@@ -16,6 +16,7 @@ class DetailsViewModel: ObservableObject {
     func getAddressText(for location: Location) -> Text {
         return Text("\(location.properties.address.street), \(location.properties.address.postcode) \(location.properties.address.city), \(location.properties.address.country)")
     }
+    
     func getAvailablePlugsText(for location: Location) -> Text {
         let countTotalConnections: Int = location.properties.connections.count
         let countAvailableConnections: Int = DataService.shared.getAvailableConnections(for: location.properties.connections)
@@ -32,12 +33,14 @@ class DetailsViewModel: ObservableObject {
             return Text("\(countAvailableConnections) von \(countTotalConnections) verfügbar")
         }
     }
+    
     func getConnectionTypes(for location: Location) -> Array<String> {
         let connectionTypes: [ChargePointConnectionType] = DataService.shared.getConnectionTypes(for: location.properties.connections)
         return connectionTypes.map { connectionType in
             return connectionType.title
         }
     }
+    
     func getDistance(for location: Location) -> Float? {
         if let userCoordinates = locationService.getCoordinates() {
             let locationLocation: CLLocation = CLLocation(
@@ -49,8 +52,44 @@ class DetailsViewModel: ObservableObject {
         }
         return nil
     }
+    
     func getMaxPower(for location: Location) -> Float? {
         return dataService.getMaxPower(for: location.properties.connections)
     }
     
+    func getConnector(for connection: ChargePointConnectionType) -> ChargePointConnector {
+        switch connection.id {
+            case 2: // chademo
+                return .chademo
+            case 25: // type 2
+                return .type2
+            case 33: // ccs type 2
+                return .ccs
+            default:
+                return .type2
+        }
+    }
+    
+    func getConnectionPower(for connection: ChargePointConnection) -> String {
+        if let power = connection.power {
+            return String(format: "%.2f", power).replacingOccurrences(of: ".", with: ",")
+        }
+        return "unbekannte Leistung"
+    }
+    
+    func getConnectionStatus(for connection: ChargePointConnection) -> ChargePointStatus {
+        switch connection.status.operational {
+        case false:
+            return .broken
+        case true:
+            switch connection.status.selectable {
+            case true:
+                return .available
+            case false:
+                return .occupied
+            }
+        @unknown default:
+            return .unknown
+        }
+    }
 }
