@@ -19,9 +19,20 @@ class HomeViewModel: ObservableObject {
         if let userLocation = locationService.getCoordinates() {
             let userRegion = MKCoordinateRegion(center: userLocation, span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)) // the span will be a fixed value for now
             apiService.fetchLocations(for: userRegion) { result in
-                DispatchQueue.main.async {
-                    self.loadingProxResults = false
-                    self.locationProxResult = result
+                switch result {
+                case .success(let locations):
+                    DispatchQueue.main.async {
+                        self.loadingProxResults = false
+                        self.locationProxResult = .success(locations)
+                    }
+                case .failure(let error):
+                    debugPrint("error: \(error)")
+                    DispatchQueue.main.async {
+                        self.loadingProxResults = false
+                        if let locations = MockService.shared.getLocations() {
+                            self.locationProxResult = .success(locations)
+                        }
+                    }
                 }
             }
         }
