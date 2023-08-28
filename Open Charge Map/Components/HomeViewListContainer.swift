@@ -17,7 +17,7 @@ struct HomeViewListContainer: View {
     @EnvironmentObject private var router: RouterService
     @Environment(\.defaultMinListRowHeight) var minRowHeight
     
-    init(with result: Binding<Result<[Location], APIError>>, isLoading: Binding<Bool>, geo: GeometryProxy) {
+    init(with result: Binding<Result<[Location], APIError>>, isLoading: Binding<Bool>) {
         self._result = result
         self._isLoading = isLoading
     }
@@ -43,7 +43,7 @@ struct HomeViewListContainer: View {
                                 DetailsView(for: location)
                             } label: {
                                 HStack {
-                                    VStack(alignment: .leading) {
+                                    VStack(alignment: .leading, spacing: 8) {
                                         Text(location.properties.address.street).fontWeight(.semibold)
                                         HStack(spacing: 4) {
                                             Text("ab \(dataService.getMinPower(for: location.properties.connections)) kW")
@@ -57,12 +57,13 @@ struct HomeViewListContainer: View {
                                     }
                                     .font(.caption2)
                                     Spacer()
-                                    Image(systemName: "chevron.right")
+                                    Image(systemName: "chevron.forward")
                                 }
-                                .padding(.vertical, 8)
-                                .padding(.horizontal, 8)
+                                .padding()
                                 .background {
-                                    RoundedRectangle(cornerRadius: 8).fill(.ultraThinMaterial)
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .fill(Color("offprimary"))
+                                        .boxShadow()
                                 }
                             }
                             .buttonStyle(.plain)
@@ -88,8 +89,6 @@ struct HomeViewListContainer_Previews: PreviewProvider {
         let locations: [Location] = MockService.shared.getLocations() ?? [] // Populate with actual location data if needed
         let error: APIError = APIError.emptyData("")
         let result: Binding<Result<[Location], APIError>> = Binding.constant(.success(locations))
-        GeometryReader { geo in
-            HomeViewListContainer(with: result, isLoading: .constant(false), geo: geo)
-        }
+        HomeViewListContainer(with: result, isLoading: .constant(false))
     }
 }
