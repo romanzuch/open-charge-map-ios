@@ -54,7 +54,7 @@ struct Status: Codable {
     }
 }
 
-struct ChargePointConnection: Codable {
+struct ChargePointConnection: Codable, Identifiable {
     var id: Int
     var type: ChargePointConnectionType
     var status: Status
