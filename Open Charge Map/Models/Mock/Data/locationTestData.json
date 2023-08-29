@@ -5,6 +5,56 @@
             "geometry": {
                 "type": "Point",
                 "coordinates": [
+                    13.417451099999994,
+                    52.543095
+                ]
+            },
+            "properties": {
+                "id": 57967,
+                "status": {
+                    "id": 50,
+                    "operational": true,
+                    "selectable": true
+                },
+                "connections": [
+                    {
+                        "id": 73757,
+                        "type": {
+                            "id": 25,
+                            "title": "Type 2 (Socket Only)",
+                            "titleOfficial": "IEC 62196-2 Type 2"
+                        },
+                        "status": {
+                            "operational": true,
+                            "selectable": true
+                        },
+                        "power": 11
+                    }
+                ],
+                "address": {
+                    "id": 58313,
+                    "title": "Raumerstraße",
+                    "street": "Raumerstraße 6",
+                    "city": "Berlin",
+                    "postcode": "10437",
+                    "country": "Germany",
+                    "lat": 52.543095,
+                    "lng": 13.417451099999994
+                },
+                "operator": {
+                    "website": "http://www.be-emobil.de/",
+                    "id": 214,
+                    "title": "be emobil",
+                    "phonePrimary": "+49 30 20847590",
+                    "phoneSecondary": "undefined"
+                }
+            }
+        },
+        {
+            "type": "Point",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
                     13.422667,
                     52.541606
                 ]
@@ -57,7 +107,9 @@
                 "operator": {
                     "website": "https://www.allego.eu/",
                     "id": 103,
-                    "title": "Allego BV"
+                    "title": "Allego BV",
+                    "phonePrimary": "undefined",
+                    "phoneSecondary": "undefined"
                 }
             }
         },
@@ -105,430 +157,9 @@
                 "operator": {
                     "website": "http://www.be-emobil.de/",
                     "id": 214,
-                    "title": "be emobil"
-                }
-            }
-        },
-        {
-            "type": "Point",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    13.417451099999994,
-                    52.543095
-                ]
-            },
-            "properties": {
-                "id": 57967,
-                "status": {
-                    "id": 50,
-                    "operational": true,
-                    "selectable": true
-                },
-                "connections": [
-                    {
-                        "id": 73757,
-                        "type": {
-                            "id": 25,
-                            "title": "Type 2 (Socket Only)",
-                            "titleOfficial": "IEC 62196-2 Type 2"
-                        },
-                        "status": {
-                            "operational": true,
-                            "selectable": true
-                        },
-                        "power": 11
-                    }
-                ],
-                "address": {
-                    "id": 58313,
-                    "title": "Raumerstraße",
-                    "street": "Raumerstraße 6",
-                    "city": "Berlin",
-                    "postcode": "10437",
-                    "country": "Germany",
-                    "lat": 52.543095,
-                    "lng": 13.417451099999994
-                },
-                "operator": {
-                    "website": "http://www.be-emobil.de/",
-                    "id": 214,
-                    "title": "be emobil"
-                }
-            }
-        },
-        {
-            "type": "Point",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    13.417228,
-                    52.543283
-                ]
-            },
-            "properties": {
-                "id": 176859,
-                "status": {
-                    "id": 0,
-                    "operational": false,
-                    "selectable": true
-                },
-                "connections": [
-                    {
-                        "id": 275286,
-                        "type": {
-                            "id": 25,
-                            "title": "Type 2 (Socket Only)",
-                            "titleOfficial": "IEC 62196-2 Type 2"
-                        },
-                        "status": {
-                            "operational": true,
-                            "selectable": true
-                        },
-                        "power": 11
-                    },
-                    {
-                        "id": 300788,
-                        "type": {
-                            "id": 25,
-                            "title": "Type 2 (Socket Only)",
-                            "titleOfficial": "IEC 62196-2 Type 2"
-                        },
-                        "status": {
-                            "operational": true,
-                            "selectable": true
-                        },
-                        "power": 11
-                    }
-                ],
-                "address": {
-                    "id": 177218,
-                    "title": "Raumerstr. ggü. 6",
-                    "street": "Raumerstr. ggü. 6",
-                    "city": "Berlin",
-                    "postcode": "10437",
-                    "country": "Germany",
-                    "lat": 52.543283,
-                    "lng": 13.417228
-                },
-                "operator": {
-                    "website": "https://www.allego.eu/",
-                    "id": 103,
-                    "title": "Allego BV"
-                }
-            }
-        },
-        {
-            "type": "Point",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    13.41543999999999,
-                    52.54432
-                ]
-            },
-            "properties": {
-                "id": 93621,
-                "status": {
-                    "id": 50,
-                    "operational": true,
-                    "selectable": true
-                },
-                "connections": [
-                    {
-                        "id": 132570,
-                        "type": {
-                            "id": 25,
-                            "title": "Type 2 (Socket Only)",
-                            "titleOfficial": "IEC 62196-2 Type 2"
-                        },
-                        "status": {
-                            "operational": true,
-                            "selectable": true
-                        },
-                        "power": 11
-                    }
-                ],
-                "address": {
-                    "id": 93967,
-                    "title": "Gneiststraße",
-                    "street": "Gneiststraße 10",
-                    "city": "Berlin",
-                    "postcode": "10437",
-                    "country": "Germany",
-                    "lat": 52.54432,
-                    "lng": 13.41543999999999
-                },
-                "operator": {
-                    "website": "http://www.be-emobil.de/",
-                    "id": 214,
-                    "title": "be emobil"
-                }
-            }
-        },
-        {
-            "type": "Point",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    13.42681,
-                    52.54529
-                ]
-            },
-            "properties": {
-                "id": 38498,
-                "status": {
-                    "id": 50,
-                    "operational": true,
-                    "selectable": true
-                },
-                "connections": [
-                    {
-                        "id": 42009,
-                        "type": {
-                            "id": 25,
-                            "title": "Type 2 (Socket Only)",
-                            "titleOfficial": "IEC 62196-2 Type 2"
-                        },
-                        "status": {
-                            "operational": false,
-                            "selectable": false
-                        },
-                        "power": 5
-                    }
-                ],
-                "address": {
-                    "id": 38844,
-                    "title": "Kanzowstraße 2",
-                    "street": "Kanzowstraße 2",
-                    "city": "Berlin",
-                    "postcode": "10439",
-                    "country": "Germany",
-                    "lat": 52.54529,
-                    "lng": 13.42681
-                },
-                "operator": {
-                    "website": "http://www.vattenfall.de/de/emobility/emobility.htm",
-                    "id": 108,
-                    "title": "Vattenfall InCharge"
-                }
-            }
-        },
-        {
-            "type": "Point",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    13.42499,
-                    52.54666
-                ]
-            },
-            "properties": {
-                "id": 57100,
-                "status": {
-                    "id": 50,
-                    "operational": true,
-                    "selectable": true
-                },
-                "connections": [
-                    {
-                        "id": 72145,
-                        "type": {
-                            "id": 25,
-                            "title": "Type 2 (Socket Only)",
-                            "titleOfficial": "IEC 62196-2 Type 2"
-                        },
-                        "status": {
-                            "operational": true,
-                            "selectable": true
-                        },
-                        "power": 11
-                    }
-                ],
-                "address": {
-                    "id": 57446,
-                    "title": "Wichertstraße",
-                    "street": "Wichertstraße 34",
-                    "city": "Berlin",
-                    "postcode": "10439",
-                    "country": "Germany",
-                    "lat": 52.54666,
-                    "lng": 13.42499
-                },
-                "operator": {
-                    "website": "http://www.be-emobil.de/",
-                    "id": 214,
-                    "title": "be emobil"
-                }
-            }
-        },
-        {
-            "type": "Point",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    13.41953239999998,
-                    52.5473706
-                ]
-            },
-            "properties": {
-                "id": 75676,
-                "status": {
-                    "id": 50,
-                    "operational": true,
-                    "selectable": true
-                },
-                "connections": [
-                    {
-                        "id": 109137,
-                        "type": {
-                            "id": 28,
-                            "title": "CEE 7/4 - Schuko - Type F",
-                            "titleOfficial": "CEE 7/4"
-                        },
-                        "status": {
-                            "operational": true,
-                            "selectable": true
-                        },
-                        "power": 2.3
-                    }
-                ],
-                "address": {
-                    "id": 76022,
-                    "title": "Fahrradladen StadtRad",
-                    "street": "Pappelallee 43",
-                    "city": "Berlin",
-                    "postcode": "10437",
-                    "country": "Germany",
-                    "lat": 52.5473706,
-                    "lng": 13.41953239999998
-                },
-                "operator": {
-                    "website": "undefined",
-                    "id": 45,
-                    "title": "(Business Owner at Location)"
-                }
-            }
-        },
-        {
-            "type": "Point",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    13.424988,
-                    52.546751
-                ]
-            },
-            "properties": {
-                "id": 182864,
-                "status": {
-                    "id": 50,
-                    "operational": true,
-                    "selectable": true
-                },
-                "connections": [
-                    {
-                        "id": 289130,
-                        "type": {
-                            "id": 25,
-                            "title": "Type 2 (Socket Only)",
-                            "titleOfficial": "IEC 62196-2 Type 2"
-                        },
-                        "status": {
-                            "operational": true,
-                            "selectable": true
-                        },
-                        "power": 11
-                    },
-                    {
-                        "id": 289131,
-                        "type": {
-                            "id": 25,
-                            "title": "Type 2 (Socket Only)",
-                            "titleOfficial": "IEC 62196-2 Type 2"
-                        },
-                        "status": {
-                            "operational": true,
-                            "selectable": true
-                        },
-                        "power": 11
-                    }
-                ],
-                "address": {
-                    "id": 183223,
-                    "title": "Wichertstr. 34",
-                    "street": "Wichertstr. 34",
-                    "city": "Berlin",
-                    "postcode": "10439",
-                    "country": "Germany",
-                    "lat": 52.546751,
-                    "lng": 13.424988
-                },
-                "operator": {
-                    "website": "https://www.allego.eu/",
-                    "id": 103,
-                    "title": "Allego BV"
-                }
-            }
-        },
-        {
-            "type": "Point",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    13.417905,
-                    52.538372
-                ]
-            },
-            "properties": {
-                "id": 183682,
-                "status": {
-                    "id": 50,
-                    "operational": true,
-                    "selectable": true
-                },
-                "connections": [
-                    {
-                        "id": 290964,
-                        "type": {
-                            "id": 25,
-                            "title": "Type 2 (Socket Only)",
-                            "titleOfficial": "IEC 62196-2 Type 2"
-                        },
-                        "status": {
-                            "operational": true,
-                            "selectable": true
-                        },
-                        "power": 11
-                    },
-                    {
-                        "id": 290965,
-                        "type": {
-                            "id": 25,
-                            "title": "Type 2 (Socket Only)",
-                            "titleOfficial": "IEC 62196-2 Type 2"
-                        },
-                        "status": {
-                            "operational": true,
-                            "selectable": true
-                        },
-                        "power": 11
-                    }
-                ],
-                "address": {
-                    "id": 184041,
-                    "title": "Sredzkistr. 35",
-                    "street": "Sredzkistr. 35",
-                    "city": "Berlin",
-                    "postcode": "10435",
-                    "country": "Germany",
-                    "lat": 52.538372,
-                    "lng": 13.417905
-                },
-                "operator": {
-                    "website": "https://www.allego.eu/",
-                    "id": 103,
-                    "title": "Allego BV"
+                    "title": "be emobil",
+                    "phonePrimary": "+49 30 20847590",
+                    "phoneSecondary": "undefined"
                 }
             }
         }
