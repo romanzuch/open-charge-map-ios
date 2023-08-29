@@ -92,4 +92,34 @@ class DetailsViewModel: ObservableObject {
             return .unknown
         }
     }
+    
+    func getOperatorWebsite(for location: Location) -> Link<Label<Text, Image>>? {
+        if let website = location.properties.locationOperator.website {
+            return Link(destination: URL(string: website)!) {
+                Label {
+                    Text(website)
+                        .font(.footnote)
+                        .foregroundColor(.primary)
+                } icon: {
+                    Image(systemName: "arrow.up.right")
+                }
+            }
+        }
+        return nil
+    }
+    
+    func callServiceLine(for location: Location, handler: @escaping (Result<URL, APIError>) -> Void) {
+        if location.properties.locationOperator.phonePrimary != "undefined" {
+            let telephone = "tel://"
+            let formattedString = telephone + location.properties.locationOperator.phonePrimary.replacingOccurrences(of: "+", with: "00").replacingOccurrences(of: " ", with: "")
+            debugPrint(formattedString)
+            guard let url = URL(string: formattedString) else {
+                handler(.failure(.unknown("Keine Telefonnummer vorhanden")))
+                return
+            }
+            handler(.success(url))
+            return
+        }
+        handler(.failure(.unknown("Ein unbekannter Fehler ist aufgetreten.")))
+    }
 }
