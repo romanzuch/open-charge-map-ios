@@ -14,12 +14,20 @@ struct HomeViewListContainer: View {
     @Binding var isLoading: Bool
     private let dataService: DataService = DataService.shared
     private let mapService: MapService = MapService.shared
+    private let locationCount: Int
     @EnvironmentObject private var router: RouterService
     @Environment(\.defaultMinListRowHeight) var minRowHeight
     
-    init(with result: Binding<Result<[Location], APIError>>, isLoading: Binding<Bool>, geo: GeometryProxy) {
+    init(with result: Binding<Result<[Location], APIError>>, isLoading: Binding<Bool>) {
         self._result = result
         self._isLoading = isLoading
+        switch result.wrappedValue {
+            case .success(let locations):
+                self.locationCount = locations.count >= 3 ? 3 : locations.count
+            case .failure(let error):
+                debugPrint("error occured: \(error.localizedDescription)")
+                self.locationCount = 0
+        }
     }
     
     var body: some View {
@@ -38,12 +46,12 @@ struct HomeViewListContainer: View {
                 } else {
                     VStack(alignment: .leading) {
                         Text("In der Nähe").fontWeight(.bold)
-                        ForEach(locations, id: \.properties.id) { location in
+                        ForEach(locations[0..<locationCount], id: \.properties.id) { location in
                             NavigationLink {
-                                Text("Details")
+                                DetailsView(for: location)
                             } label: {
                                 HStack {
-                                    VStack(alignment: .leading) {
+                                    VStack(alignment: .leading, spacing: 8) {
                                         Text(location.properties.address.street).fontWeight(.semibold)
                                         HStack(spacing: 4) {
                                             Text("ab \(dataService.getMinPower(for: location.properties.connections)) kW")
@@ -57,12 +65,13 @@ struct HomeViewListContainer: View {
                                     }
                                     .font(.caption2)
                                     Spacer()
-                                    Image(systemName: "chevron.right")
+                                    Image(systemName: "chevron.forward")
                                 }
-                                .padding(.vertical, 8)
-                                .padding(.horizontal, 8)
+                                .padding()
                                 .background {
-                                    RoundedRectangle(cornerRadius: 8).fill(.ultraThinMaterial)
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .fill(Color("offprimary"))
+                                        .boxShadow()
                                 }
                             }
                             .buttonStyle(.plain)
@@ -88,8 +97,6 @@ struct HomeViewListContainer_Previews: PreviewProvider {
         let locations: [Location] = MockService.shared.getLocations() ?? [] // Populate with actual location data if needed
         let error: APIError = APIError.emptyData("")
         let result: Binding<Result<[Location], APIError>> = Binding.constant(.success(locations))
-        GeometryReader { geo in
-            HomeViewListContainer(with: result, isLoading: .constant(false), geo: geo)
-        }
+        HomeViewListContainer(with: result, isLoading: .constant(false))
     }
 }

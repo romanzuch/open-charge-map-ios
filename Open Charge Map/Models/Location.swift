@@ -54,7 +54,7 @@ struct Status: Codable {
     }
 }
 
-struct ChargePointConnection: Codable {
+struct ChargePointConnection: Codable, Identifiable {
     var id: Int
     var type: ChargePointConnectionType
     var status: Status
@@ -119,11 +119,15 @@ struct LocationOperator: Codable {
     var id: Int
     var website: String?
     var title: String
+    var phonePrimary: String
+    var phoneSecondary: String
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.id = try container.decode(Int.self, forKey: .id)
         self.website = try container.decodeIfPresent(String.self, forKey: .website)
         self.title = try container.decode(String.self, forKey: .title)
+        self.phonePrimary = try container.decode(String.self, forKey: .phonePrimary)
+        self.phoneSecondary = try container.decode(String.self, forKey: .phoneSecondary)
     }
 }

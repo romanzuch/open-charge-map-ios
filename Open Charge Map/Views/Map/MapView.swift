@@ -111,6 +111,7 @@ struct MapView: UIViewRepresentable {
         }
         
         func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
+            // TODO: - This should only be executed when the new location is greater than something => otherwise, the location is updated all the time
             if let newLocation = userLocation.location?.coordinate {
                 let coordinateSpan = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
                 let newRegion = MKCoordinateRegion(center: newLocation, span: coordinateSpan)
