@@ -14,12 +14,20 @@ struct HomeViewListContainer: View {
     @Binding var isLoading: Bool
     private let dataService: DataService = DataService.shared
     private let mapService: MapService = MapService.shared
+    private let locationCount: Int
     @EnvironmentObject private var router: RouterService
     @Environment(\.defaultMinListRowHeight) var minRowHeight
     
     init(with result: Binding<Result<[Location], APIError>>, isLoading: Binding<Bool>) {
         self._result = result
         self._isLoading = isLoading
+        switch result.wrappedValue {
+            case .success(let locations):
+                self.locationCount = locations.count >= 3 ? 3 : locations.count
+            case .failure(let error):
+                debugPrint("error occured: \(error.localizedDescription)")
+                self.locationCount = 0
+        }
     }
     
     var body: some View {
@@ -38,7 +46,7 @@ struct HomeViewListContainer: View {
                 } else {
                     VStack(alignment: .leading) {
                         Text("In der Nähe").fontWeight(.bold)
-                        ForEach(locations, id: \.properties.id) { location in
+                        ForEach(locations[0..<locationCount], id: \.properties.id) { location in
                             NavigationLink {
                                 DetailsView(for: location)
                             } label: {
