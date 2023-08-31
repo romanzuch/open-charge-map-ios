@@ -23,6 +23,9 @@ struct InformationPill: View {
     
     var body: some View {
         VStack(alignment: .center, spacing: 8) {
+            Text(subTitle)
+                .font(.footnote)
+                .foregroundColor(.gray)
             HStack {
                 Image(systemName: icon)
                     .font(.title3)
@@ -34,11 +37,8 @@ struct InformationPill: View {
             .background {
                 RoundedRectangle(cornerRadius: 8)
                     .fill(Color("offprimary"))
-                    .boxShadow()
+                    .vibrantShadow()
             }
-            Text(subTitle)
-                .font(.footnote)
-                .foregroundColor(.gray)
         }
     }
 }
