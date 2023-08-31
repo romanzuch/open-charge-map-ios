@@ -16,7 +16,22 @@ struct ActiveChargingView: View {
     }
     
     var body: some View {
-        Text(location.properties.address.street)
+        VStack(alignment: .center, spacing: 8) {
+            HStack {
+                Text("Aktiver Ladevorgang")
+                    .font(.title)
+                    .fontWeight(.bold)
+                Spacer()
+            }
+            .padding(.bottom, 48)
+            HStack {
+                InformationPill(icon: "eurosign", text: "0,12€", subTitle: "Geschätzter Preis", size: .small)
+                InformationPill(icon: "clock", text: "00:20", subTitle: "Dauer", size: .small)
+                InformationPill(icon: "eurosign", text: "0,57€", subTitle: "Preis pro kWh", size: .small)
+            }
+            Spacer()
+        }
+        .padding()
     }
 }
 
