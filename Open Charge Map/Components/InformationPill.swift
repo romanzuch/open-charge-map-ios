@@ -59,6 +59,8 @@ struct InformationPill: View {
                     Spacer().frame(width: 12)
                     Text(text)
                 }
+                .font(.title)
+                .fontWeight(.bold)
                 .padding()
                 .frame(width: geometryProxy.size.width*(2/3)-(3*12), height: length*4+10, alignment: .center)
                 .background {
@@ -119,6 +121,8 @@ struct InformationPill: View {
                         Spacer().frame(width: 12)
                         Text(text)
                     }
+                    .font(.title)
+                    .fontWeight(.bold)
                 }
                 .padding()
                 .frame(width: geometryProxy.size.width*(2/3)-(3*12), height: length*4+10, alignment: .center)
