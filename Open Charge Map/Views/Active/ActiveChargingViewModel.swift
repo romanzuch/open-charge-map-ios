@@ -6,3 +6,17 @@
 //
 
 import Foundation
+
+class ActiveChargingViewModel: ObservableObject {
+    var location: Location
+    
+    init(location: Location) {
+        self.location = location
+    }
+}
+
+extension ActiveChargingViewModel {
+    func isRoamingLocation() -> Bool {
+        return true
+    }
+}
