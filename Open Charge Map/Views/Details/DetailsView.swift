@@ -124,7 +124,7 @@ struct DetailsView: View {
                             }
                         })
                         .sheet(isPresented: $showActiveChargingView, content: {
-                            ActiveChargingView(with: location)
+                            ActiveChargingView(with: location, for: connection)
                         })
                         .buttonStyle(.plain)
                     }
