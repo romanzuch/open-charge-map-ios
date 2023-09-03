@@ -8,13 +8,30 @@
 import SwiftUI
 
 struct ActiveChargingPill: View {
+    
+    var transaction: Transaction
+    
+    init(for transaction: Transaction) {
+        self.transaction = transaction
+    }
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Text("\(transaction.start)")
+            Text("\(transaction.powerValues.count)")
+        }
+        .padding()
+        .background {
+            RoundedRectangle(cornerRadius: 8)
+                .fill(Color("offprimary"))
+                .boxShadow()
+        }
     }
 }
 
 struct ActiveChargingPill_Previews: PreviewProvider {
+    static let transaction: Transaction = Transaction(time: Date())
     static var previews: some View {
-        ActiveChargingPill()
+        ActiveChargingPill(for: transaction)
     }
 }
