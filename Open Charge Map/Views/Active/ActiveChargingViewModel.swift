@@ -11,6 +11,7 @@ class ActiveChargingViewModel: ObservableObject {
     var connection: ChargePointConnection
     @Published var transactionTime: Int = 0
     @Published var power: Float = 0.0
+    @Published var powerValues: [PowerValue] = []
     @Published var timerString: String = ""
     var timer: Timer?
     
@@ -28,9 +29,13 @@ extension ActiveChargingViewModel {
     
     func startTransaction() {
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
-            self?.transactionTime += 1
-            self?.power += self?.calculatePower() ?? 0.0
-            self?.getTimerString()
+            DispatchQueue.main.async {
+                self?.transactionTime += 1
+                let newPowerValue: Float = self?.calculatePower() ?? 0.0
+                self?.power += newPowerValue
+                self?.powerValues.append(PowerValue(for: newPowerValue))
+                self?.getTimerString()
+            }
         }
     }
     
