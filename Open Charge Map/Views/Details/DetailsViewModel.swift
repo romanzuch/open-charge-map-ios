@@ -88,8 +88,6 @@ class DetailsViewModel: ObservableObject {
             case false:
                 return .occupied
             }
-        @unknown default:
-            return .unknown
         }
     }
     
