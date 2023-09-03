@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Charts
 
 struct ActiveChargingView: View {
     
@@ -37,6 +38,16 @@ struct ActiveChargingView: View {
                     InformationPill(icon: "eurosign", text: "0,57€", size: .small, geo: geo)
                     }
                 }
+                Spacer()
+                // MARK: - Charging Data Chart
+                Chart {
+                    ForEach(viewModel.powerValues, id: \.date) { item in
+                        LineMark(
+                            x: .value("Zeit", item.date),
+                            y: .value("kW", item.value)
+                        )
+                    }
+                }
                 if viewModel.isRoamingLocation() {
                     HStack {
                         Image(systemName: "exclamationmark.triangle.fill")
@@ -54,7 +65,6 @@ struct ActiveChargingView: View {
                             .boxShadow()
                     }
                 }
-                Spacer()
                 Button {
                     viewModel.stopTransaction { result in
                         switch result {
@@ -65,9 +75,20 @@ struct ActiveChargingView: View {
                         }
                     }
                 } label: {
-                    Text("Beenden")
+                    HStack {
+                        Spacer()
+                        Text("Beenden")
+                        Spacer()
+                    }
+                        .padding()
+                        .foregroundColor(Color("offprimary"))
+                        .background {
+                            RoundedRectangle(cornerRadius: 8)
+                                .fill(.red)
+                                .boxShadow()
+                        }
                 }
-
+                .buttonStyle(.plain)
             }
             .padding()
         }
