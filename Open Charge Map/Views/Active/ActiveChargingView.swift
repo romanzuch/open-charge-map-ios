@@ -35,17 +35,31 @@ struct ActiveChargingView: View {
                     InformationPill(icon: "clock", text: viewModel.timerString, size: .medium, geo: geo)
                     VStack {
                         InformationPill(icon: "bolt", text: String(format: "%.2f", viewModel.power/3600), size: .small, geo: geo)
-                    InformationPill(icon: "eurosign", text: "0,57€", size: .small, geo: geo)
+                        InformationPill(icon: "eurosign", text: "0,57€", size: .small, geo: geo)
                     }
                 }
                 Spacer()
                 // MARK: - Charging Data Chart
-                Chart {
-                    ForEach(viewModel.powerValues, id: \.date) { item in
-                        LineMark(
-                            x: .value("Zeit", item.date),
-                            y: .value("kW", item.value)
-                        )
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Ladekurve")
+                        .font(.title3)
+                        .fontWeight(.bold)
+                    Chart {
+                        ForEach(viewModel.powerValues, id: \.date) { item in
+                            LineMark(
+                                x: .value("Zeit", item.date),
+                                y: .value("kW", item.value)
+                            )
+                            .foregroundStyle(Color.orange)
+                        }
+                    }
+                    .chartXAxisLabel {
+                        Text("Zeit")
+                            .fontWeight(.bold)
+                    }
+                    .chartYAxisLabel {
+                        Text("kW")
+                            .fontWeight(.bold)
                     }
                 }
                 if viewModel.isRoamingLocation() {
@@ -68,7 +82,7 @@ struct ActiveChargingView: View {
                 Button {
                     viewModel.stopTransaction { result in
                         switch result {
-                        case .success(let success):
+                        case .success(_):
                             presentationMode.wrappedValue.dismiss()
                         case .failure(let failure):
                             debugPrint(failure)
