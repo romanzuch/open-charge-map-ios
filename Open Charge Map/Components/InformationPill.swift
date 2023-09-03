@@ -42,7 +42,7 @@ struct InformationPill: View {
                         .font(.title3)
                         .fontWeight(.bold)
                     Spacer().frame(width: 12)
-                    Text(text)
+                    Text(text.replacingOccurrences(of: ".", with: ","))
                 }
                 .padding()
                 .frame(width: geometryProxy.size.width*(1/3)-(12), height: length*2, alignment: .center)
