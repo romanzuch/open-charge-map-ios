@@ -11,6 +11,7 @@ struct DetailsView: View {
     
     var location: Location
     @StateObject private var viewModel: DetailsViewModel = DetailsViewModel()
+    @State private var showActiveChargingView: Bool = false
     
     init(for location: Location) {
         self.location = location
@@ -81,9 +82,9 @@ struct DetailsView: View {
                 Spacer()
                 VStack {
                     ForEach(location.properties.connections, id: \.id) { connection in
-                        NavigationLink {
-                            Text("Laden")
-                        } label: {
+                        Button(action: {
+                            showActiveChargingView = true
+                        }, label: {
                             HStack {
                                 Image(viewModel.getConnector(for: connection.type).icon)
                                     .resizable()
@@ -121,7 +122,10 @@ struct DetailsView: View {
                                     .fill(Color("offprimary"))
                                     .boxShadow()
                             }
-                        }
+                        })
+                        .sheet(isPresented: $showActiveChargingView, content: {
+                            ActiveChargingView(with: location, for: connection)
+                        })
                         .buttonStyle(.plain)
                     }
                 }

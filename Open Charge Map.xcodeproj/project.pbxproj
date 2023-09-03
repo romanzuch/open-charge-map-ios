@@ -35,8 +35,12 @@
 		304ABF682A9D057600AE0C08 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 304ABF672A9D057600AE0C08 /* View.swift */; };
 		309996252A928D8900469FF3 /* MKCoordinateRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309996242A928D8900469FF3 /* MKCoordinateRegion.swift */; };
 		309996272A93801B00469FF3 /* LocationAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309996262A93801B00469FF3 /* LocationAnnotationView.swift */; };
+		309C1B372AA0C58600E9E339 /* ActiveChargingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309C1B362AA0C58600E9E339 /* ActiveChargingView.swift */; };
+		309C1B392AA0C9A600E9E339 /* InformationPill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309C1B382AA0C9A600E9E339 /* InformationPill.swift */; };
 		309DEC6A2A99195A007123F2 /* locationTestData.json in Resources */ = {isa = PBXBuildFile; fileRef = 309DEC692A99195A007123F2 /* locationTestData.json */; };
 		309DEC6E2A99198D007123F2 /* MockService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 309DEC6D2A99198D007123F2 /* MockService.swift */; };
+		30A42D832AA3AE4A00FE6FB0 /* ActiveChargingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A42D822AA3AE4A00FE6FB0 /* ActiveChargingViewModel.swift */; };
+		30A42D852AA3C18800FE6FB0 /* ActiveCharging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A42D842AA3C18800FE6FB0 /* ActiveCharging.swift */; };
 		30AC05E02A96918000E86DE9 /* RouterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AC05DF2A96918000E86DE9 /* RouterService.swift */; };
 		30BACA9A2A9A371B004828CA /* HomeViewListContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BACA992A9A371B004828CA /* HomeViewListContainer.swift */; };
 		30BACA9E2A9A37FB004828CA /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30BACA9D2A9A37FB004828CA /* DetailsView.swift */; };
@@ -95,8 +99,12 @@
 		304ABF672A9D057600AE0C08 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		309996242A928D8900469FF3 /* MKCoordinateRegion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKCoordinateRegion.swift; sourceTree = "<group>"; };
 		309996262A93801B00469FF3 /* LocationAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAnnotationView.swift; sourceTree = "<group>"; };
+		309C1B362AA0C58600E9E339 /* ActiveChargingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveChargingView.swift; sourceTree = "<group>"; };
+		309C1B382AA0C9A600E9E339 /* InformationPill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationPill.swift; sourceTree = "<group>"; };
 		309DEC692A99195A007123F2 /* locationTestData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = locationTestData.json; sourceTree = "<group>"; };
 		309DEC6D2A99198D007123F2 /* MockService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockService.swift; sourceTree = "<group>"; };
+		30A42D822AA3AE4A00FE6FB0 /* ActiveChargingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveChargingViewModel.swift; sourceTree = "<group>"; };
+		30A42D842AA3C18800FE6FB0 /* ActiveCharging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveCharging.swift; sourceTree = "<group>"; };
 		30AC05DF2A96918000E86DE9 /* RouterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterService.swift; sourceTree = "<group>"; };
 		30BACA992A9A371B004828CA /* HomeViewListContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewListContainer.swift; sourceTree = "<group>"; };
 		30BACA9D2A9A37FB004828CA /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
@@ -143,6 +151,7 @@
 			children = (
 				3046AEAD2A9903CF000F2119 /* ErrorView.swift */,
 				30BACA992A9A371B004828CA /* HomeViewListContainer.swift */,
+				309C1B382AA0C9A600E9E339 /* InformationPill.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -212,6 +221,7 @@
 		304251442A90ED250092AB95 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				309C1B352AA0C57C00E9E339 /* Active */,
 				30BACA9C2A9A37D2004828CA /* Details */,
 				302418372A9687980053A7B5 /* Home */,
 				304251492A90EED00092AB95 /* Map */,
@@ -234,6 +244,7 @@
 				302418402A968A690053A7B5 /* MapType.swift */,
 				304ABF632A9CD97000AE0C08 /* ChargePointStatus.swift */,
 				304ABF652A9CDAD600AE0C08 /* ChargePointConnector.swift */,
+				30A42D842AA3C18800FE6FB0 /* ActiveCharging.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -268,6 +279,15 @@
 				304ABF672A9D057600AE0C08 /* View.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		309C1B352AA0C57C00E9E339 /* Active */ = {
+			isa = PBXGroup;
+			children = (
+				309C1B362AA0C58600E9E339 /* ActiveChargingView.swift */,
+				30A42D822AA3AE4A00FE6FB0 /* ActiveChargingViewModel.swift */,
+			);
+			path = Active;
 			sourceTree = "<group>";
 		};
 		309DEC672A99191B007123F2 /* Mock */ = {
@@ -426,8 +446,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				309C1B392AA0C9A600E9E339 /* InformationPill.swift in Sources */,
 				3042515B2A9125C60092AB95 /* MapService.swift in Sources */,
 				3024183D2A9687B40053A7B5 /* HomeViewModel.swift in Sources */,
+				30A42D832AA3AE4A00FE6FB0 /* ActiveChargingViewModel.swift in Sources */,
 				30DFD7082A93B7E000FB157C /* MapError.swift in Sources */,
 				3042515D2A9144DE0092AB95 /* NotificationService.swift in Sources */,
 				302418412A968A690053A7B5 /* MapType.swift in Sources */,
@@ -448,11 +470,13 @@
 				3042514D2A90EF430092AB95 /* LocationService.swift in Sources */,
 				30BACA9A2A9A371B004828CA /* HomeViewListContainer.swift in Sources */,
 				304251512A90FAC00092AB95 /* Location.swift in Sources */,
+				30A42D852AA3C18800FE6FB0 /* ActiveCharging.swift in Sources */,
 				309996272A93801B00469FF3 /* LocationAnnotationView.swift in Sources */,
 				304ABF682A9D057600AE0C08 /* View.swift in Sources */,
 				3042511B2A90EB2D0092AB95 /* Open_Charge_MapApp.swift in Sources */,
 				304251572A911FD10092AB95 /* DataType.swift in Sources */,
 				304251592A9122670092AB95 /* MapViewModel.swift in Sources */,
+				309C1B372AA0C58600E9E339 /* ActiveChargingView.swift in Sources */,
 				309DEC6E2A99198D007123F2 /* MockService.swift in Sources */,
 				304ABF642A9CD97000AE0C08 /* ChargePointStatus.swift in Sources */,
 			);
