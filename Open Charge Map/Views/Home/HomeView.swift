@@ -11,22 +11,28 @@ struct HomeView: View {
     
     @StateObject private var viewModel: HomeViewModel = HomeViewModel()
     @EnvironmentObject private var router: RouterService
+    @AppStorage("ActiveTransaction") var activeTransaction: Transaction?
     
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 12) {
-                // Around
+                //MARK: - Active Transaction
+                if let transaction = activeTransaction {
+                    ActiveChargingPill(for: transaction)
+                }
+                
+                //MARK: - Prox. Locations
                 HomeViewListContainer(with: $viewModel.locationProxResult, isLoading: $viewModel.loadingProxResults)
                     .onAppear {
                         viewModel.fetchLocations()
                     }
                     .environmentObject(router)
                 
-                // Favorites
+                //MARK: - Favorites
                 Text("Favoriten").fontWeight(.bold)
                 Text("hier können favoriten stehen").font(.caption2)
                 
-                // Map
+                //MARK: - Shortcut to Map
                 Text("Karte").fontWeight(.bold)
                 MapView(type: .passive)
                     .frame(height: 240)
