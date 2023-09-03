@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 class ActiveChargingViewModel: ObservableObject {
     var connection: ChargePointConnection
@@ -13,6 +14,7 @@ class ActiveChargingViewModel: ObservableObject {
     @Published var power: Float = 0.0
     @Published var powerValues: [PowerValue] = []
     @Published var timerString: String = ""
+    @AppStorage("ActiveTransaction") var activeTransaction: Transaction?
     var timer: Timer?
     
     init(connection: ChargePointConnection) {
@@ -28,20 +30,21 @@ extension ActiveChargingViewModel {
     }
     
     func startTransaction() {
+        self.activeTransaction = Transaction(time: Date())
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
             DispatchQueue.main.async {
                 self?.transactionTime += 1
+                self?.getTimerString()
                 let newPowerValue: Float = self?.calculatePower() ?? 0.0
                 self?.power += newPowerValue
                 self?.powerValues.append(PowerValue(for: newPowerValue))
-                self?.getTimerString()
             }
         }
     }
     
     func calculatePower() -> Float? {
         if let power = connection.power {
-            return Float.random(in: power*0.9...power)
+            return Float.random(in: power*0.75...power)
         }
         return nil
     }
@@ -54,6 +57,7 @@ extension ActiveChargingViewModel {
     }
     
     func stopTransaction(handler: @escaping ((Result<Bool, Error>) -> Void)) {
+        self.activeTransaction = nil
         timer?.invalidate()
         timer = nil
         handler(.success(true))
